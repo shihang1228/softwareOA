@@ -51,8 +51,18 @@ if($do==""){
 
 //新增安装信息
 if($do=="new"){
+
+	$sql="SELECT pingjia FROM `rv_jixiao`";
+	$db->query($sql);
+	$list=$db->fetchAll();
+	//格式化输出数据
+	foreach($list as $key=>$val){
+		$list[$key][id_txt] = $list[$list[$key][id]];		
+	}
+
     If_rabc($action,$do); //检测权限
 	$smt = new smarty();smarty_cfg($smt);
+	$smt->assign('list',$list);
 	$smt->assign('title',"新增");
 	$smt->display('install_new.htm');
 	exit;

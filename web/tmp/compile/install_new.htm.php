@@ -8,8 +8,10 @@
 				</p>
 				<p>
 					<label>速度线束：</label>
-					<input name="carNum" class="required" type="radio" size="30" value="好" alt=""/>好&nbsp;&nbsp;&nbsp;&nbsp;
-					<input name="carNum" class="required" type="radio" size="30" value="不好" alt=""/>不好
+					<?php $_from = $this->_var['list']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('', 'row');if (count($_from)):
+    foreach ($_from AS $this->_var['row']):
+?>
+					<input name="carNum" class="required" type="radio" size="30" value="<?php echo $this->_var['row']['pingjia']; ?>" alt=""/><?php echo $this->_var['row']['pingjia']; ?>&nbsp;&nbsp;&nbsp;&nbsp;<?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
 				</p>
 				<p>
 					<label>常火线束：</label>

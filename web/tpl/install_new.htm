@@ -8,8 +8,8 @@
 				</p>
 				<p>
 					<label>速度线束：</label>
-					<input name="carNum" class="required" type="radio" size="30" value="好" alt=""/>好&nbsp;&nbsp;&nbsp;&nbsp;
-					<input name="carNum" class="required" type="radio" size="30" value="不好" alt=""/>不好
+					<!--{foreach from=$list item=row}-->
+					<input name="carNum" class="required" type="radio" size="30" value="<!--{$row.pingjia}-->" alt=""/><!--{$row.pingjia}-->&nbsp;&nbsp;&nbsp;&nbsp;<!--{/foreach}-->
 				</p>
 				<p>
 					<label>常火线束：</label>
