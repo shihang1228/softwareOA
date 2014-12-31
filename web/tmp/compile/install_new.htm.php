@@ -11,55 +11,91 @@
 					<?php $_from = $this->_var['list']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('', 'row');if (count($_from)):
     foreach ($_from AS $this->_var['row']):
 ?>
-					<input name="carNum" class="required" type="radio" size="30" value="<?php echo $this->_var['row']['pingjia']; ?>" alt=""/><?php echo $this->_var['row']['pingjia']; ?>&nbsp;&nbsp;&nbsp;&nbsp;<?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
+					<input name="line1" class="required" type="radio" size="30" value="<?php echo $this->_var['row']['pingjia']; ?>" alt=""/><?php echo $this->_var['row']['pingjia']; ?>&nbsp;&nbsp;&nbsp;&nbsp;<?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
 				</p>
 				<p>
 					<label>常火线束：</label>
-					<input name="carNum" class="required" type="text" size="30" value="" alt=""/>
+					<?php $_from = $this->_var['list']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('', 'row');if (count($_from)):
+    foreach ($_from AS $this->_var['row']):
+?>
+					<input name="line2" class="required" type="radio" size="30" value="<?php echo $this->_var['row']['pingjia']; ?>" alt=""/><?php echo $this->_var['row']['pingjia']; ?>&nbsp;&nbsp;&nbsp;&nbsp;<?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
 				</p>
 				<p>
 					<label>ACC线束：</label>
-					<input name="carNum" class="required" type="text" size="30" value="" alt=""/>
+					<?php $_from = $this->_var['list']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('', 'row');if (count($_from)):
+    foreach ($_from AS $this->_var['row']):
+?>
+					<input name="line3" class="required" type="radio" size="30" value="<?php echo $this->_var['row']['pingjia']; ?>" alt=""/><?php echo $this->_var['row']['pingjia']; ?>&nbsp;&nbsp;&nbsp;&nbsp;<?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
 				</p>
 				<p>
 					<label>搭铁线束：</label>
-					<input name="carNum" class="required" type="text" size="30" value="" alt=""/>
+					<?php $_from = $this->_var['list']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('', 'row');if (count($_from)):
+    foreach ($_from AS $this->_var['row']):
+?>
+					<input name="line4" class="required" type="radio" size="30" value="<?php echo $this->_var['row']['pingjia']; ?>" alt=""/><?php echo $this->_var['row']['pingjia']; ?>&nbsp;&nbsp;&nbsp;&nbsp;<?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
 				</p>
 				<p>
 					<label>刹车线束：</label>
-					<input name="carNum" class="required" type="text" size="30" value="" alt=""/>
+					<?php $_from = $this->_var['list']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('', 'row');if (count($_from)):
+    foreach ($_from AS $this->_var['row']):
+?>
+					<input name="line5" class="required" type="radio" size="30" value="<?php echo $this->_var['row']['pingjia']; ?>" alt=""/><?php echo $this->_var['row']['pingjia']; ?>&nbsp;&nbsp;&nbsp;&nbsp;<?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
 				</p>
 				<p>
 					<label>远光线束：</label>
-					<input name="carNum" class="required" type="text" size="30" value="" alt=""/>
+					<?php $_from = $this->_var['list']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('', 'row');if (count($_from)):
+    foreach ($_from AS $this->_var['row']):
+?>
+					<input name="line6" class="required" type="radio" size="30" value="<?php echo $this->_var['row']['pingjia']; ?>" alt=""/><?php echo $this->_var['row']['pingjia']; ?>&nbsp;&nbsp;&nbsp;&nbsp;<?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
 				</p>
 				<p>
 					<label>近光线束：</label>
-					<input name="carNum" class="required" type="text" size="30" value="" alt=""/>
+					<?php $_from = $this->_var['list']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('', 'row');if (count($_from)):
+    foreach ($_from AS $this->_var['row']):
+?>
+					<input name="line7" class="required" type="radio" size="30" value="<?php echo $this->_var['row']['pingjia']; ?>" alt=""/><?php echo $this->_var['row']['pingjia']; ?>&nbsp;&nbsp;&nbsp;&nbsp;<?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
 				</p>
 				<p>
 					<label>左转向线束：</label>
-					<input name="carNum" class="required" type="text" size="30" value="" alt=""/>
+					<?php $_from = $this->_var['list']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('', 'row');if (count($_from)):
+    foreach ($_from AS $this->_var['row']):
+?>
+					<input name="line8" class="required" type="radio" size="30" value="<?php echo $this->_var['row']['pingjia']; ?>" alt=""/><?php echo $this->_var['row']['pingjia']; ?>&nbsp;&nbsp;&nbsp;&nbsp;<?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
 				</p>
 				<p>
 					<label>右转向线束：</label>
-					<input name="carNum" class="required" type="text" size="30" value="" alt=""/>
+					<?php $_from = $this->_var['list']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('', 'row');if (count($_from)):
+    foreach ($_from AS $this->_var['row']):
+?>
+					<input name="line9" class="required" type="radio" size="30" value="<?php echo $this->_var['row']['pingjia']; ?>" alt=""/><?php echo $this->_var['row']['pingjia']; ?>&nbsp;&nbsp;&nbsp;&nbsp;<?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
 				</p>
 				<p>
 					<label>摄像头1：</label>
-					<input name="carNum" class="required" type="text" size="30" value="" alt=""/>
+					<?php $_from = $this->_var['list']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('', 'row');if (count($_from)):
+    foreach ($_from AS $this->_var['row']):
+?>
+					<input name="camera1" class="required" type="radio" size="30" value="<?php echo $this->_var['row']['pingjia']; ?>" alt=""/><?php echo $this->_var['row']['pingjia']; ?>&nbsp;&nbsp;&nbsp;&nbsp;<?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
 				</p>
 				<p>
 					<label>摄像头2：</label>
-					<input name="carNum" class="required" type="text" size="30" value="" alt=""/>
+					<?php $_from = $this->_var['list']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('', 'row');if (count($_from)):
+    foreach ($_from AS $this->_var['row']):
+?>
+					<input name="camera2" class="required" type="radio" size="30" value="<?php echo $this->_var['row']['pingjia']; ?>" alt=""/><?php echo $this->_var['row']['pingjia']; ?>&nbsp;&nbsp;&nbsp;&nbsp;<?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
 				</p>
 				<p>
 					<label>摄像头3：</label>
-					<input name="carNum" class="required" type="text" size="30" value="" alt=""/>
+					<?php $_from = $this->_var['list']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('', 'row');if (count($_from)):
+    foreach ($_from AS $this->_var['row']):
+?>
+					<input name="camera3" class="required" type="radio" size="30" value="<?php echo $this->_var['row']['pingjia']; ?>" alt=""/><?php echo $this->_var['row']['pingjia']; ?>&nbsp;&nbsp;&nbsp;&nbsp;<?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
 				</p>
 				<p>
 					<label>摄像头4：</label>
-					<input name="carNum" class="required" type="text" size="30" value="" alt=""/>
+					<?php $_from = $this->_var['list']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('', 'row');if (count($_from)):
+    foreach ($_from AS $this->_var['row']):
+?>
+					<input name="camera4" class="required" type="radio" size="30" value="<?php echo $this->_var['row']['pingjia']; ?>" alt=""/><?php echo $this->_var['row']['pingjia']; ?>&nbsp;&nbsp;&nbsp;&nbsp;<?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
 				</p>
 			</div>
 			<div class="formBar">

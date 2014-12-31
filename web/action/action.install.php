@@ -72,8 +72,8 @@ if($do=="new"){
 //写入安装信息
 if($do=="add"){
 	If_rabc($action,$do); //检测权限
-	$sql="INSERT INTO `rv_install` (`carNum`,`company1` )
-	VALUES ('$_POST[carNum]', '$_SESSION[company1]');";
+	$sql="INSERT INTO `rv_install` (`carNum`,`line1`,`line2`,`line3`,`line4`,`line5`,`line6`,`line7`,`line8`,`line9`,`camera1`,`camera2`,`camera3`,`camera4`,`company1` )
+	VALUES ('$_POST[carNum]', '$_POST[line1]','$_POST[line2]','$_POST[line3]','$_POST[line4]','$_POST[line5]','$_POST[line6]','$_POST[line7]','$_POST[line8]','$_POST[line9]','$_POST[camera1]','$_POST[camera2]','$_POST[camera3]','$_POST[camera4]','$_SESSION[company1]');";
 	if($db->query($sql)){echo close($msg,"install");}else{echo error($msg);}
 	exit;
 }
