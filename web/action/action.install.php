@@ -80,17 +80,13 @@ if($do=="add"){
 //删除
 if($do=="del"){
 	If_rabc($action,$do); //检测权限
-	If_comrabc($id,"`rv_storage`");	
+	If_comrabc($id,"`rv_install`");	
 	//查找该库房中是否有东西
-	$sql="select * from `rv_storage` where roomId='$id' and company1='$_SESSION[company1]'";
+	$sql="select * from `rv_install` where id='$id' and company1='$_SESSION[company1]'";
 	$a=mysql_query($sql);
 	$b=mysql_num_rows($a);
-	if($b>0){
-		echo error("该库房中有商品不能进行删除！");	
-	}else{
-		$sql="delete from `rv_room` where `rv_room`.`id`='$id' limit 1";
-		if($db->query($sql)){echo success($msg);}else{echo error($msg);}
-	}	
+	$sql="delete from `rv_install` where `rv_install`.`id`='$id' limit 1";
+	if($db->query($sql)){echo success($msg);}else{echo error($msg);}
 	exit;
 }
 //更新
