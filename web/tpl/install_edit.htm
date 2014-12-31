@@ -1,0 +1,163 @@
+<div class="page">
+	<div class="pageContent">
+		<form method="post" action="?action=install&do=updata" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone);">
+		<input type="hidden" style="display:none;" name="id" value="<!--{$row.id}-->" />
+			<div class="pageFormContent" layoutH="56">
+				<p>
+					<label>车牌号：</label>
+					<input name="carNum" class="required" type="text" size="30" value="<!--{$row.carNum}-->" alt=""/>
+				</p>
+				<p>
+					<label>速度线束：</label>
+					<!--{foreach from=$list item=row}-->
+					{if $row1.line1 == $row.pingjia}
+					<input name="line1" class="required" type="radio" size="30" checked="checked" value="<!--{$row1.line1}-->" alt=""/><!--{$row.pingjia}-->&nbsp;&nbsp;&nbsp;&nbsp;
+					{/if}
+					{if $row1.line1 != $row.pingjia}
+					<input name="line1" class="required" type="radio" size="30" value="<!--{$row.pingjia}-->" alt=""/><!--{$row.pingjia}-->&nbsp;&nbsp;&nbsp;&nbsp;
+					{/if}
+					<!--{/foreach}-->
+					
+				</p>
+				<p>
+					<label>常火线束：</label>
+					<!--{foreach from=$list item=row}-->
+					{if $row1.line2 == $row.pingjia}
+					<input name="line2" class="required" type="radio" size="30" checked="checked" value="<!--{$row.line2}-->" alt=""/><!--{$row.pingjia}-->&nbsp;&nbsp;&nbsp;&nbsp;
+					{/if}
+					{if $row1.line2 != $row.pingjia}
+					<input name="line2" class="required" type="radio" size="30" value="<!--{$row.pingjia}-->" alt=""/><!--{$row.pingjia}-->&nbsp;&nbsp;&nbsp;&nbsp;
+					{/if}
+					<!--{/foreach}-->
+				</p>
+				<p>
+					<label>ACC线束：</label>
+					<!--{foreach from=$list item=row}-->
+					{if $row1.line3 == $row.pingjia}
+					<input name="line3" class="required" type="radio" size="30" checked="checked" value="<!--{$row.line3}-->" alt=""/><!--{$row.pingjia}-->&nbsp;&nbsp;&nbsp;&nbsp;
+					{/if}
+					{if $row1.line3 != $row.pingjia}
+					<input name="line3" class="required" type="radio" size="30" value="<!--{$row.pingjia}-->" alt=""/><!--{$row.pingjia}-->&nbsp;&nbsp;&nbsp;&nbsp;
+					{/if}
+					<!--{/foreach}-->
+				</p>
+				<p>
+					<label>搭铁线束：</label>
+					<!--{foreach from=$list item=row}-->
+					{if $row1.line4 == $row.pingjia}
+					<input name="line4" class="required" type="radio" size="30" checked="checked" value="<!--{$row.line4}-->" alt=""/><!--{$row.pingjia}-->&nbsp;&nbsp;&nbsp;&nbsp;
+					{/if}
+					{if $row1.line4 != $row.pingjia}
+					<input name="line4" class="required" type="radio" size="30" value="<!--{$row.pingjia}-->" alt=""/><!--{$row.pingjia}-->&nbsp;&nbsp;&nbsp;&nbsp;
+					{/if}
+					<!--{/foreach}-->
+				</p>
+				<p>
+					<label>刹车线束：</label>
+					<!--{foreach from=$list item=row}-->
+					{if $row1.line5 == $row.pingjia}
+					<input name="line5" class="required" type="radio" size="30" checked="checked" value="<!--{$row.line5}-->" alt=""/><!--{$row.pingjia}-->&nbsp;&nbsp;&nbsp;&nbsp;
+					{/if}
+					{if $row1.line5 != $row.pingjia}
+					<input name="line5" class="required" type="radio" size="30" value="<!--{$row.pingjia}-->" alt=""/><!--{$row.pingjia}-->&nbsp;&nbsp;&nbsp;&nbsp;
+					{/if}
+					<!--{/foreach}-->
+				</p>
+				<p>
+					<label>远光线束：</label>
+					<!--{foreach from=$list item=row}-->
+					{if $row1.line6 == $row.pingjia}
+					<input name="line6" class="required" type="radio" size="30" checked="checked" value="<!--{$row.line6}-->" alt=""/><!--{$row.pingjia}-->&nbsp;&nbsp;&nbsp;&nbsp;
+					{/if}
+					{if $row1.line2 != $row.pingjia}
+					<input name="line6" class="required" type="radio" size="30" value="<!--{$row.pingjia}-->" alt=""/><!--{$row.pingjia}-->&nbsp;&nbsp;&nbsp;&nbsp;
+					{/if}
+					<!--{/foreach}-->
+				</p>
+				<p>
+					<label>近光线束：</label>
+					<!--{foreach from=$list item=row}-->
+					{if $row1.line7 == $row.pingjia}
+					<input name="line7" class="required" type="radio" size="30" checked="checked" value="<!--{$row.line7}-->" alt=""/><!--{$row.pingjia}-->&nbsp;&nbsp;&nbsp;&nbsp;
+					{/if}
+					{if $row1.line7 != $row.pingjia}
+					<input name="line7" class="required" type="radio" size="30" value="<!--{$row.pingjia}-->" alt=""/><!--{$row.pingjia}-->&nbsp;&nbsp;&nbsp;&nbsp;
+					{/if}
+					<!--{/foreach}-->
+				</p>
+				<p>
+					<label>左转向线束：</label>
+					<!--{foreach from=$list item=row}-->
+					{if $row1.line8 == $row.pingjia}
+					<input name="line8" class="required" type="radio" size="30" checked="checked" value="<!--{$row.line8}-->" alt=""/><!--{$row.pingjia}-->&nbsp;&nbsp;&nbsp;&nbsp;
+					{/if}
+					{if $row1.line8 != $row.pingjia}
+					<input name="line8" class="required" type="radio" size="30" value="<!--{$row.pingjia}-->" alt=""/><!--{$row.pingjia}-->&nbsp;&nbsp;&nbsp;&nbsp;
+					{/if}
+					<!--{/foreach}-->
+				</p>
+				<p>
+					<label>右转向线束：</label>
+					<!--{foreach from=$list item=row}-->
+					{if $row1.line9 == $row.pingjia}
+					<input name="line9" class="required" type="radio" size="30" checked="checked" value="<!--{$row.line9}-->" alt=""/><!--{$row.pingjia}-->&nbsp;&nbsp;&nbsp;&nbsp;
+					{/if}
+					{if $row1.line9 != $row.pingjia}
+					<input name="line9" class="required" type="radio" size="30" value="<!--{$row.pingjia}-->" alt=""/><!--{$row.pingjia}-->&nbsp;&nbsp;&nbsp;&nbsp;
+					{/if}
+					<!--{/foreach}-->
+				</p>
+				<p>
+					<label>摄像头1：</label>
+					<!--{foreach from=$list item=row}-->
+					{if $row1.camera1 == $row.pingjia}
+					<input name="camera1" class="required" type="radio" size="30" checked="checked" value="<!--{$row.camera1}-->" alt=""/><!--{$row.pingjia}-->&nbsp;&nbsp;&nbsp;&nbsp;
+					{/if}
+					{if $row1.camera1 != $row.pingjia}
+					<input name="camera1" class="required" type="radio" size="30" value="<!--{$row.pingjia}-->" alt=""/><!--{$row.pingjia}-->&nbsp;&nbsp;&nbsp;&nbsp;
+					{/if}
+					<!--{/foreach}-->
+				</p>
+				<p>
+					<label>摄像头2：</label>
+					<!--{foreach from=$list item=row}-->
+					{if $row1.camera2 == $row.pingjia}
+					<input name="camera2" class="required" type="radio" size="30" checked="checked" value="<!--{$row.camera2}-->" alt=""/><!--{$row.pingjia}-->&nbsp;&nbsp;&nbsp;&nbsp;
+					{/if}
+					{if $row1.camera2 != $row.pingjia}
+					<input name="camera2" class="required" type="radio" size="30" value="<!--{$row.pingjia}-->" alt=""/><!--{$row.pingjia}-->&nbsp;&nbsp;&nbsp;&nbsp;
+					{/if}
+					<!--{/foreach}-->
+				</p>
+				<p>
+					<label>摄像头3：</label>
+					<!--{foreach from=$list item=row}-->
+					{if $row1.camera3 == $row.pingjia}
+					<input name="camera3" class="required" type="radio" size="30" checked="checked" value="<!--{$row.camera3}-->" alt=""/><!--{$row.pingjia}-->&nbsp;&nbsp;&nbsp;&nbsp;
+					{/if}
+					{if $row1.camera3 != $row.pingjia}
+					<input name="camera3" class="required" type="radio" size="30" value="<!--{$row.pingjia}-->" alt=""/><!--{$row.pingjia}-->&nbsp;&nbsp;&nbsp;&nbsp;
+					{/if}
+					<!--{/foreach}-->
+				</p>
+				<p>
+					<label>摄像头4：</label>
+					<!--{foreach from=$list item=row}-->
+					{if $row1.camera4 == $row.pingjia}
+					<input name="camera4" class="required" type="radio" size="30" checked="checked" value="<!--{$row.camera4}-->" alt=""/><!--{$row.pingjia}-->&nbsp;&nbsp;&nbsp;&nbsp;
+					{/if}
+					{if $row1.camera4 != $row.pingjia}
+					<input name="camera4" class="required" type="radio" size="30" value="<!--{$row.pingjia}-->" alt=""/><!--{$row.pingjia}-->&nbsp;&nbsp;&nbsp;&nbsp;
+					{/if}
+					<!--{/foreach}-->
+				</p>
+			</div>
+			<div class="formBar">
+				<ul>
+					<li><div class="buttonActive"><div class="buttonContent"><button type="submit">保存</button></div></div></li>
+					<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+				</ul>
+			</div>
+		</form>
+	</div>
+</div>

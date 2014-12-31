@@ -94,27 +94,49 @@ if($do=="updata"){
 	If_rabc($action,$do); //检测权限	
 	If_comrabc($_POST[id],"`rv_install`");	
 	//sql
-	$sql="UPDATE `rv_room` SET 
-	`name` = '$name',
-	`address` = '$_POST[address]'
-	WHERE `rv_room`.`id` ='$_POST[id]' LIMIT 1 ;";	
-	if($db->query($sql)){echo close($msg,"room");}else{echo error($msg);}	
+	$sql="UPDATE `rv_install` SET 
+	`carNum` = '$_POST[carNum]',
+	`line1` = '$_POST[line1]',
+	`line2` = '$_POST[line2]',
+	`line3` = '$_POST[line3]',
+	`line4` = '$_POST[line4]',
+	`line5` = '$_POST[line5]',
+	`line6` = '$_POST[line6]',
+	`line7` = '$_POST[line7]',
+	`line8` = '$_POST[line8]',
+	`line9` = '$_POST[line9]',
+	`camera1` = '$_POST[camera1]',
+	`camera2` = '$_POST[camera2]',
+	`camera3` = '$_POST[camera3]',
+	`camera4` = '$_POST[camera4]'
+	WHERE `rv_install`.`id` ='$_POST[id]' LIMIT 1 ;";	
+	if($db->query($sql)){echo close($msg,"install");}else{echo error($msg);}	
 	exit;
 }
 
 //编辑	
 if($do=="edit"){
+
+	$sql="SELECT pingjia FROM `rv_jixiao`";
+	$db->query($sql);
+	$list=$db->fetchAll();
+	//格式化输出数据
+	foreach($list as $key=>$val){
+		$list[$key][id_txt] = $list[$list[$key][id]];		
+	}
+
 	If_rabc($action,$do); //检测权限
-	If_comrabc($id,"`rv_storage`");	
+	If_comrabc($id,"`rv_install`");	
 	$smt = new smarty();smarty_cfg($smt);
 	//查询
-	$sql="SELECT * FROM `rv_room` where id='{$id}' LIMIT 1";
+	$sql="SELECT * FROM `rv_install` where id='{$id}' LIMIT 1";
  	$db->query($sql);
 	$row=$db->fetchRow();
 	//模版
-	$smt->assign('row',$row); 
+	$smt->assign('row1',$row);
+	$smt->assign('list',$list);
 	$smt->assign('title',"编辑");
-	$smt->display('room_edit.htm');
+	$smt->display('install_edit.htm');
 	exit;
 }
 
