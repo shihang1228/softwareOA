@@ -1,0 +1,87 @@
+﻿<div class="page">
+	<div class="pageContent">
+		<form method="post" action="?action=car&do=updata" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone);">
+		<input type="hidden" style="display:none;" name="id" value="<!--{$row.id}-->" />
+			<div class="pageFormContent" layoutH="56">
+				<p>
+					<label>公司名称：</label>
+					<input name="company" class="required" type="text" size="25" value="<!--{$row.company}-->" alt=""/>
+					<a class="btnLook" href="?action=car&do=search" lookupGroup="" width="500">查找带回</a>
+				</p>
+				<p>
+					<label>车牌号：</label>
+					<input name="carNum" readonly="readonly" class="required" type="text" size="30" value="<!--{$row.carNum}-->" alt=""/>
+				</p>
+				<p>
+					<label>车架号：</label>
+					<input name="chejiaNum" class="chejiaNum textInput required" type="text" size="30" value="<!--{$row.chejiaNum}-->" alt=""/>
+				</p>
+				<p>
+					<label>平台名称：</label>
+					<!--{$platform_cn}-->
+				</p>
+				<p>
+					<label>车辆类型：</label>
+					<input name="carleixing" readonly="readonly" class="required" type="text" size="25" value="<!--{$row.carleixing}-->" alt=""/>
+					<a class="btnLook" href="?action=car&do=search1" lookupGroup="" width="500">查找带回</a>
+				</p>
+				<p>
+					<label>车辆状态：</label>
+					<!--{$carstateId_cn}-->
+				</p>
+				<p>
+					<label>行车证审验日期：</label>
+					<input name="zhengdate"  type="text" size="30" value="<!--{$row.zhengdate}-->" alt=""/>
+				</p>
+				<p>
+					<label>线路：</label>
+					<input name="xianlu" type="text" size="30" value="<!--{$row.xianlu}-->" alt=""/>
+				</p>
+				<p>
+					<label>联系人：</label>
+					<input name="linkname" class="required" type="text" size="30" value="<!--{$row.linkname}-->" alt=""/>
+				</p>
+				<p>
+					<label>联系电话：</label>
+					<input name="tel" class="phone textInput required" type="text" size="30" value="<!--{$row.tel}-->" alt=""/>
+				</p>
+				<p>
+					<label>每年需交服务费：</label>
+					<!--{$fuwufei_cn}-->
+				</p>
+				<p>
+					<label>是否分期付款：</label>
+					<select class="combox required" name="fenqi">
+					<option value="<!--{$row.fenqi}-->" selected="selected"><!--{$row.fenqi}--></option>
+					{if $row.fenqi=="否"}<option value="是">是</option>{/if}
+					{if $row.fenqi=="是"}<option value="否">否</option>{/if}
+					</select>
+				</p>
+				<p>
+					<label>是否安装双设备：</label>
+					<select class="combox required" name="doubledevice">
+					<option value="<!--{$row.doubledevice}-->" selected="selected"><!--{$row.doubledevice}--></option>
+					{if $row.doubledevice=="否"}<option value="是">是</option><option value="特殊">特殊</option>{/if}
+					{if $row.doubledevice=="是"}<option value="否">否</option><option value="特殊">特殊</option>{/if}
+					{if $row.doubledevice=="特殊"}<option value="是">是</option><option value="否">否</option>{/if}
+					</select>
+				</p>
+				<p>
+					<label>是否属于转发车辆：</label>
+					<select class="combox required" name="zhuanfa">
+					<option value="<!--{$row.zhuanfa}-->" selected="selected"><!--{$row.zhuanfa}--></option>
+					{if $row.zhuanfa==""}<option value="是">是</option><option value="否">否</option>{/if}
+					{if $row.zhuanfa=="否"}<option value="是">是</option>{/if}
+					{if $row.zhuanfa=="是"}<option value="否">否</option>{/if}
+					</select>
+				</p>
+			</div>
+			<div class="formBar">
+				<ul>
+					<li><div class="buttonActive"><div class="buttonContent"><button type="submit">保存</button></div></div></li>
+					<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+				</ul>
+			</div>
+		</form>
+	</div>
+</div>

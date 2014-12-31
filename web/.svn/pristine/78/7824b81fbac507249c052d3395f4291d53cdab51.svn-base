@@ -1,0 +1,77 @@
+<form id="pagerForm" method="post" action="index.php?action=sell">
+	<input type="hidden" name="pageNum" value="1" />
+    <input type="hidden" name="numPerPage" value="24" />
+	<input type="hidden" name="name" value="<?php echo $_REQUEST['name']; ?>"/>
+	<input type="hidden" name="address" value="<?php echo $_REQUEST['address']; ?>"/>
+	<input type="hidden" name="time_start" value="<?php echo $_REQUEST['time_start']; ?>"/>
+	<input type="hidden" name="time_over" value="<?php echo $_REQUEST['time_over']; ?>"/>
+	<input type="hidden" name="areaid" value="<?php echo $_REQUEST['areaid']; ?>"/>
+	<input type="hidden" name="typeid" value="<?php echo $_REQUEST['typeid']; ?>"/>
+	<input type="hidden" name="salesid" value="<?php echo $_REQUEST['salesid']; ?>"/>
+</form>
+
+<div class="page">
+	<div class="pageHeader">
+		<form onsubmit="return navTabSearch(this);" action="index.php?action=sell" method="post">
+		<div class="searchBar">
+			<table class="searchContent">
+				<tr>
+					<td>
+						客户名称:<input type="text" name="name" size="12" value="<?php echo $_REQUEST['name']; ?>"/>
+					</td>
+					<td>
+						发生时间:<input type="text" name="time_start" size="9" class="date" readonly="true" value="<?php echo $_REQUEST['time_start']; ?>"/>
+						-<input type="text" name="time_over" size="9" class="date" readonly="true" value="<?php echo $_REQUEST['time_over']; ?>"/>
+					</td>					
+					<?php if ($_SESSION['roleid'] != "3"): ?>	
+					<td>
+					<?php echo $this->_var['salesid_cn']; ?>
+					</td>
+					<?php endif; ?>
+					<td>
+					<div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div>
+					</td>
+				</tr>
+			</table>
+		</div>
+		</form>
+	</div>
+	<div class="pageContent">
+		<div class="panelBar">
+			<ul class="toolBar">
+				<li><a class="add" href="?action=sell&do=new&id={id}" target="dialog" mask="true"><span>新增维护信息</span></a></li>
+			</ul>
+		</div>
+		<table class="list" layouth="91" style="width:1220px;">
+			<thead>
+				<tr align=center>
+					<th align="center">ID</th>
+					<th align="center">所属维护</th>
+					<th align="center">客户名称</th>				
+					<?php echo $this->_var['marketid_cn']; ?>					
+					<?php echo $this->_var['productid_cn']; ?>
+				</tr>
+			</thead>
+			<tbody>			
+			<?php $_from = $this->_var['list']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('', 'row');if (count($_from)):
+    foreach ($_from AS $this->_var['row']):
+?>
+				<tr target="id" rel="<?php echo $this->_var['row']['id']; ?>" align=center>
+					<td><?php echo $this->_var['row']['id']; ?></td>
+					<td><?php echo $this->_var['row']['salesid_txt']; ?></td>	
+					<td><?php echo $this->_var['row']['name']; ?></td>
+					<?php echo $this->_var['row']['productid_tj']; ?> 
+				</tr>			
+			<?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
+			</tbody>
+		</table>
+		<div class="panelBar">
+			<div class="pages">
+				<span>共<?php echo $this->_var['total']; ?>条</span>
+			</div>
+			
+			<div class="pagination" targetType="navTab" totalCount="<?php echo $this->_var['total']; ?>" numPerPage="24" pageNumShown="10" currentPage="<?php echo $this->_var['pageNum']; ?>"></div>
+
+		</div>
+	</div>
+</div>

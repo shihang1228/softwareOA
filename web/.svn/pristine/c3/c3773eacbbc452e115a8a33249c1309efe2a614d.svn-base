@@ -1,0 +1,60 @@
+﻿<form id="pagerForm" method="post" action="index.php?action=role">
+	<input type="hidden" name="pageNum" value="1" />
+    <input type="hidden" name="numPerPage" value="20" />
+	<input type="hidden" name="name" value="{$smarty.request.name}"/>
+	<input type="hidden" name="time_start" value="{$smarty.request.time_start}"/>
+	<input type="hidden" name="time_over" value="{$smarty.request.time_over}"/>
+</form>
+
+<div class="page">
+	<div class="pageHeader">
+		<form onsubmit="return navTabSearch(this);" action="index.php?action=role" method="post">
+		<div class="searchBar">
+			<table class="searchContent">
+				<tr>
+					<td>
+						角色名称:<input type="text" name="title" size="10" value="{$smarty.request.title}"/>
+					</td>
+					<td>
+						<div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div>
+					</td>
+				</tr>
+			</table>
+		</div>
+		</form>
+	</div>
+	<div class="pageContent">
+		<div class="panelBar">
+			<ul class="toolBar">
+				<li><a class="add" href="?action=role&do=new" target="dialog" mask="true"><span>添加</span></a></li>
+				<li><a class="edit" href="?action=role&do=edit&id={id}" target="dialog" mask="true"><span>修改</span></a></li>
+			</ul>
+		</div>
+		<table class="list" layouth="90" width="400px" style="table-layout: fixed;">
+			<thead>
+				<tr>
+					<th align="center" width="15px">ID</th>
+					<th align="center" width="70px">角色名称</th>
+					<th align="center" width="315px">页面权限</th>
+				</tr>
+			</thead>
+			<tbody>			
+			<!--{foreach from=$list item=row}-->
+				<tr target="id" rel="<!--{$row.id}-->" >
+					<td><!--{$row.id}--></td>
+					<td><!--{$row.title}--></td>
+					<td style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"><!--{$row.action}--></td>
+				</tr>			
+			<!--{/foreach}-->
+			</tbody>
+		</table>
+		<div class="panelBar">
+			<div class="pages">
+				<span>共{$total}条</span>
+			</div>
+			
+			<div class="pagination" targetType="navTab" totalCount="{$total}" numPerPage="20" pageNumShown="10" currentPage="{$pageNum}"></div>
+
+		</div>
+	</div>
+</div>

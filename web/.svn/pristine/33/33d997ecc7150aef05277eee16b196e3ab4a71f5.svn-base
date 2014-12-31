@@ -1,0 +1,146 @@
+<?php
+header("Content-type: text/html; charset=utf-8");
+if(!defined('CORE'))exit("error!"); 
+
+
+=======
+
+/* //客户销售统计表查询
+function count_info_sl($id,$td){
+	global $db;
+	//按维护类型查询数量
+	$sql="SELECT id,category FROM `rv_sort`";
+	$db->query($sql);
+	$list=$db->fetchAll();
+	 //格式化输出数据
+	foreach($list as $key=>$val){
+		$list1[$list[$key][id]] = $list[$key][category];	//物品类型数组		
+	} 
+	return $cc;
+} */
+
+
+>>>>>>> .r14
+//列表	
+if($do==""){
+	//If_rabc($action,$do); //检测权限	
+	//判断检索值
+	if($_POST['name']){$search .= " and name like '%$_POST[name]%'";}
+	if($_POST['sortid']){$search .= " and categoryId = '$_POST[sortid]'";}
+	if($_POST['model']){$search .= " and model like '%$_POST[model]%'";}
+	
+	
+	//判断如果是维护只显示自己的
+	//if($_SESSION[roleid]=="3"){$search .= " and salesid = '$_SESSION[userid]'";} //维护
+	
+	//设置分页
+	if($_POST[numPerPage]=="")
+	{
+		$numPerPage="24";
+	}else{
+		$numPerPage=$_POST[numPerPage];
+	}
+
+	if($_POST[pageNum]==""||$_POST[pageNum]=="0" )
+	{
+		$pageNum="0";
+	}else{
+		$pageNum=($_POST[pageNum]-1)*$numPerPage;
+	}
+	$info_num=mysql_query("SELECT * FROM `rv_product` where 1=1 $search");//当前频道条数
+	$total=mysql_num_rows($info_num);//总条数	
+
+	//查询
+	$sql="SELECT id,category FROM `rv_sort`";
+	$db->query($sql);
+	$list=$db->fetchAll();
+	
+	
+	 //格式化输出数据
+	foreach($list as $key=>$val){
+		$list1[$list[$key][id]] = $list[$key][category];	//物品类型数组		
+	} 
+	
+	//查询
+	$sql="SELECT rv_product.id,rv_product.name,rv_product.unit,rv_sort.category as b,rv_product.model,rv_product.price FROM `rv_product`,`rv_sort` where rv_product.categoryId = rv_sort.id $search";
+	$db->query($sql);
+	$list=$db->fetchAll();
+	//格式化输出数据
+	foreach($list as $key=>$val){
+		$list[$key][id_txt] = $list1[$list[$key][id]];		
+		
+	}
+	//模版
+	$smt = new smarty();smarty_cfg($smt);
+	$smt->assign('list',$list);	 
+	
+	$smt->assign('sortid_cn',select($list1,"sortid","","类别选择"));//第一个参数是数组，第二个是要传递的字段名，第三个判断是否被选中
+	$smt->assign('numPerPage',$_POST[numPerPage]); //显示条数
+	$smt->assign('pageNum',$_POST[pageNum]); //当前页数
+	$smt->assign('total',$total);
+	//$smt->assign('title',"客户列表");
+	$smt->display('product_list.htm');
+	exit;	
+}
+
+
+
+//新增维护信息	
+if($do=="new"){
+	// If_rabc($action,$do); //检测权限
+	$smt = new smarty();smarty_cfg($smt);
+	$smt->assign('sortid_cn',select($list1,"categoryId",$row[categoryId],"类别选择"));
+	$smt->assign('title',"新增");
+	$smt->display('product_new.htm');
+	exit;
+}
+
+
+//写入维护信息
+if($do=="add"){
+	// If_rabc($action,$do); //检测权限
+	$sql="INSERT INTO `rv_product` (`name` ,`unit` ,`categoryId` ,`model` ,`price`)
+	VALUES ('$_POST[name]','$_POST[unit]','$_POST[categoryId]','$_POST[model]','$_POST[price]');";
+	if($db->query($sql)){echo success($msg);}else{echo error($msg);}
+	exit;
+}
+//删除
+if($do=="del"){
+/* 	If_rabc($action,$do); //检测权限 */
+	$sql="delete from `rv_product` where `id`=$id limit 1";
+	if($db->query($sql)){echo success($msg);}else{echo error($msg);}		
+	exit;
+}
+
+
+//编辑	
+if($do=="edit"){
+	// If_rabc($action,$do); //检测权限
+	$smt = new smarty();smarty_cfg($smt);
+	//查询
+	$sql="SELECT * FROM `rv_product` where id='{$id}' LIMIT 1";
+ 	$db->query($sql);
+	$row=$db->fetchRow();
+	//模版
+	$smt->assign('sortid_cn',select($list1,"categoryId",$row[categoryId],"类别选择"));
+	$smt->assign('row',$row); 
+	$smt->assign('title',"编辑");
+	$smt->display('product_edit.htm');
+	exit;
+}
+
+//更新
+if($do=="updata"){
+	// If_rabc($action,$do); //检测权限	
+	if($_POST[id]){$id=$_POST[id];}
+	else{$id=$_SESSION[id];}
+
+	//sql
+	$sql="UPDATE `rv_product` SET 
+	`name` = '$_POST[name]',`unit` = '$_POST[unit]',`categoryId` = '$_POST[categoryId]',`model` = '$_POST[model]',`price` = '$_POST[price]'
+	WHERE `rv_product`.`id` ='$_POST[id]' LIMIT 1 ;";	
+	if($db->query($sql)){echo success($msg);}else{echo error($msg);}	
+	exit;
+}
+
+?>

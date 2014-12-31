@@ -1,0 +1,68 @@
+<?php
+header("Content-type: text/html; charset=utf-8");
+if(!defined('CORE'))exit("error!"); 
+
+//列表	
+if($do==""){
+	//If_rabc($action,$do); //检测权限	
+	//判断如果是维护只显示自己的
+	//if($_SESSION[roleid]=="3"){$search .= " and salesid = '$_SESSION[userid]'";} //维护
+	
+	//设置分页
+	if($_POST[numPerPage]=="")
+	{
+		$numPerPage="24";
+	}else{
+		$numPerPage=$_POST[numPerPage];
+	}
+
+	if($_POST[pageNum]==""||$_POST[pageNum]=="0" )
+	{
+		$pageNum="0";
+	}else{
+		$pageNum=($_POST[pageNum]-1)*$numPerPage;
+	}
+
+	
+	//查询入库商品的相关信息
+	$sql="select a.id as id,b.name as pname,c1.name as roomchu,c2.name as roomru,a.quantity as quantity from `rv_diaobo` as a,`rv_product` as b,`rv_room` as c1,`rv_room` as c2 where a.productId=b.id and a.roomchuId=c1.id and a.roomruId=c2.id";
+	$db->query($sql);
+	$list=$db->fetchAll();
+	$info_num=mysql_query($sql);
+	$total=mysql_num_rows($info_num);//总条数
+	//模版
+	$smt = new smarty();smarty_cfg($smt);
+	$smt->assign('list',$list);	 
+	$smt->assign('numPerPage',$_POST[numPerPage]); //显示条数
+	$smt->assign('pageNum',$_POST[pageNum]); //当前页数
+	$smt->assign('total',$total);
+	$smt->assign('title',"产品列表"); 
+	$smt->display('diaobo_list.htm');
+	exit;	
+}
+
+
+
+//新增维护信息	
+if($do=="new"){
+	// If_rabc($action,$do); //检测权限
+	$smt = new smarty();smarty_cfg($smt);
+	$smt->assign('productId_cn',select($product_list,"productId","","选择商品"));
+	$smt->assign('roomchuId_cn',select($room_list,"roomchuId","","调出库房选择"));
+	$smt->assign('roomruId_cn',select($room_list,"roomruId","","调入库房选择"));
+	$smt->assign('title',"调拨记录");
+	$smt->display('diaobo_new.htm');
+	exit;
+}
+
+
+//写入维护信息
+if($do=="add"){
+	// If_rabc($action,$do); //检测权限
+	$sql="INSERT INTO `rv_diaobo` (`productId` ,`roomchuId`,`roomruId` ,`quantity`)
+	VALUES ('$_POST[productId]','$_POST[roomchuId]','$_POST[roomruId]','$_POST[quantity]');";
+	if($db->query($sql)){echo success($msg);}else{echo error($msg);}
+	exit;
+}
+
+?>

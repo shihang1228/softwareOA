@@ -1,0 +1,246 @@
+<?php
+//====================================================
+//		FileName: func.class.php
+//		Summary:  系统函数配置
+//====================================================
+
+if(!defined('CORE'))exit("error!"); 
+//当前时区
+date_default_timezone_set('asia/shanghai');
+
+//初始化数据库连接
+$db	= new mysql($cfg["dbhost"],$cfg["dbuser"],$cfg["dbpass"],$cfg["dbname"]);
+
+//提示信息
+$lang_cn =array(
+	"rabc_error"=>"<script>alert(\"权限不足!\");window.location=\"index.php\";</script>",
+	"rabc_is_login"=>"<script>window.location=\"index.php?action=user&do=login\";</script>",
+	"rabc_login_ok"=>"<script>window.location=\"index.php\";</script>",
+	"rabc_login_error"=>"<script>alert(\"用户密码错误!\");window.location=\"index.php?action=user&do=login\";</script>",
+	"rabc_logout"=>"<script>alert(\"安全退出!\");window.location=\"index.php?action=user&do=login\";</script>",
+	"validate"=>"<script>alert(\"内容不全,返回填写!\");history.back(-1);</script>"
+);
+
+//配置类型
+$type_cn =array("areaid"=>"公司地区","typeid"=>"公司名称","productid"=>"维护信息","doctid"=>"公告文档");
+
+//权限页面
+$action_cn=array(
+	"info"=>"车辆列表",
+	"infonew"=>"新建车辆",
+	//"infomap"=>"客户地图",
+	"infoadd"=>"车辆信息",
+	"infoedit"=>"编辑车辆",
+	"infoupdata"=>"更新车辆",
+	"infodel"=>"删除车辆",
+	"infoshow"=>"车辆明细",
+	
+	"sell"=>"维护信息列表",
+	"sellnew"=>"新建维护信息",
+	"selladd"=>"写入维护信息",
+	
+	//"daily"=>"日报列表",
+	"dailyedit"=>"编辑日报",
+	"dailyupdata"=>"更新日报",
+	"dailydel"=>"删除日报",
+	
+	//"photo"=>"照片管理列表",
+	//"photoup"=>"上传照片",
+	//"photodel"=>"删除照片信息",
+	
+	"doc"=>"公告文档",
+	"docupload"=>"公告文档附件",
+	"docnew"=>"新建文档",
+	"docadd"=>"写入文档",
+	"docedit"=>"编辑文档",
+	"docupdata"=>"更新文档",
+	"docdel"=>"删除文档",
+	"docshow"=>"文档明细",
+	
+	"note"=>"反馈列表",
+	"notenew"=>"新建反馈",
+	"noteadd"=>"写入反馈",
+	"noteedit"=>"编辑反馈",
+	"noteupdata"=>"更新反馈",
+	"notedel"=>"删除反馈",
+	
+	"tel"=>"电话列表",
+	"telnew"=>"新建电话",
+	"teladd"=>"写入电话",
+	"teledit"=>"编辑电话",
+	"telupdata"=>"更新电话",
+	"teldel"=>"删除电话",
+	
+	//"track"=>"轨迹文档",
+	//"trackshow"=>"轨迹明细",
+	
+	"reportt1"=>"维护统计表",
+	"reportt1t"=>"维护统计表[图]",
+	"reportt2"=>"区域统计表",
+	"reportt2t"=>"区域统计表[图]",
+	"reportt3"=>"公司统计表",
+	"reportt3t"=>"公司统计表[图]",
+	//"reportt7"=>"考勤统计表",
+	//"reportt7t"=>"考勤统计表[图]",
+	//"reportt7tmap"=>"考勤轨迹查看",
+	
+	"user"=>"用户列表",
+	"usernew"=>"新建用户",
+	"useradd"=>"写入用户",
+	"useredit"=>"编辑用户",
+	"usereditpass"=>"修改密码",
+	"userupdata"=>"更新用户",
+	"userupdatapass"=>"更新密码",
+	"userdel"=>"删除用户",
+	
+	"role"=>"角色列表",
+	"rolenew"=>"新建角色",
+	"roleadd"=>"写入角色",
+	"roleedit"=>"编辑角色",
+	"roleupdata"=>"更新角色",
+	"roledel"=>"删除角色",
+	
+	"config"=>"配置列表",
+	"confignew"=>"新建配置",
+	"configadd"=>"写入配置",
+	"configedit"=>"编辑配置",
+	"configupdata"=>"更新配置",
+	"configdel"=>"删除配置",	
+		
+	"datalist"=>"数据列表",
+	"databackupupdata"=>"数据备份更新",
+	"datarecoverupdata"=>"数据恢复更新"
+	
+);
+
+//安全验证
+function _RunMagicQuotes(&$svar){
+	if(!get_magic_quotes_gpc())	{
+		if( is_array($svar) ){
+			foreach($svar as $_k => $_v) $svar[$_k] = _RunMagicQuotes($_v);
+		}else{
+			$svar = addslashes($svar);
+		}
+	}
+	return $svar;
+}
+
+//SMARTY模版配置
+function smarty_cfg($self){
+	global $cfg;
+	global $css;
+	$self->template_dir='./tpl';
+	$self->cache_dir='./tmp/cache';
+	$self->compile_dir	='./tmp/compile';
+	$self->assign('cfg',$cfg);
+	$self->assign('css',$css);
+}
+
+//安全过滤
+foreach(Array('_GET','_POST','_COOKIE') as $_request){
+	foreach($$_request as $_k => $_v) ${$_k} = _RunMagicQuotes($_v);
+}
+
+//dwz_ajax_succee
+function success($msg){
+	$msg = $msg ? $msg : "操作成功!";
+	$json = "{\"statusCode\":\"200\",\"message\":\"".$msg."\",\"navTabId\":\"\",\"callbackType\":\"forward\"}";
+	return $json;
+}
+
+//dwz_ajax_error
+function error($msg){
+	$msg = $msg ? $msg : "操作错误!";
+	$json = "{\"statusCode\":\"300\",\"message\":\"".$msg."\",\"navTabId\":\"\",\"callbackType\":\"forward\"}";
+	return $json;
+}
+
+
+
+
+/*打印友好的数组形式*/
+function dump($array){
+	echo "<pre>";
+	print_r($array);
+	echo "<pre>";
+}
+
+//中文截取
+function cnString($text, $length){
+	if(strlen($text) <= $length){
+		return $text;
+	}
+	$str = substr($text, 0, $length) . chr(0) ; 
+	return $str;
+}
+
+
+//数组转化为select
+function select($arr,$name,$self="",$cn_name="选择",$class="combox"){
+	$slt .= "<select name=\"".$name."\" class=\"input ".$class."\" title=\"此项目必填\" validate=\"required:true\">";
+	$slt .= "<option value=\"\" selected=\"selected\">".$cn_name."</option>";
+	foreach($arr as $key=>$val){
+		if($key==$self){
+		$slt .= "    <option value=\"".$key."\" selected=\"selected\">".$val."</option>";
+		}else{
+		$slt .= "    <option value=\"".$key."\">".$val."</option>";
+		}
+	}
+    $slt .= "</select>";
+	return $slt;
+}
+
+
+//读取目录所有的文件名
+function myreaddir($dir) {
+	$handle=opendir($dir);
+	$i=0;
+	while($file=readdir($handle)){
+		if ($file!="." && $file!=".." && !is_dir($file)){
+		$list[$i]=$file;
+		$i=$i+1;
+		}
+	}
+	closedir($handle);
+	rsort($list);
+	return $list;
+}
+
+//验证内容
+function Ifvalidate($arr){
+	global $lang_cn;
+	foreach($arr as $val){
+		if(!$val){exit($lang_cn['validate']);}
+	}
+}
+
+//arr=>json
+function my_json_encode($phparr){
+    if(function_exists("json_encode")){
+      return json_encode($phparr);
+    }else{
+      require_once './include/json.php';
+      $json = new Services_JSON;
+      return $json->encode($phparr);
+    }
+}
+
+//json=>arr
+function json_to_array($web){
+	$arr=array();
+	foreach($web as $k=>$w){
+	if(is_object($w)) $arr[$k]=json_to_array($w);  //判断类型是不是object
+	else $arr[$k]=$w;
+	}
+	return $arr;
+}
+
+//数组转化为type循环th名称
+function type_th($arr){
+	foreach($arr as $key=>$val){
+		$slt .= "<th>".$val."</th>\n";
+	}
+	return $slt;
+}
+
+?>

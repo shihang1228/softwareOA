@@ -1,0 +1,29 @@
+<div class="page">
+	<div class="pageContent">
+		<form method="post" action="?action=car&do=updatafuwufei" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone);">
+		<input type="hidden" style="display:none;" name="id" value="<?php echo $this->_var['row']['id']; ?>" />
+			<div class="pageFormContent" layoutH="56">
+				<p>
+					<label>公司名称：</label>
+					<input name="company" readonly="readonly" class="required" type="text" size="30" value="<?php echo $this->_var['row']['company']; ?>" alt=""/>
+				</p>
+				<p>
+					<label>车牌号：</label>
+					<input name="carNum" readonly="readonly" class="required" type="text" size="30" value="<?php echo $this->_var['row']['carNum']; ?>" alt=""/>
+				</p>
+				
+				<p>
+					<label>每年需交服务费：</label>
+					<input name="fuwufei" type="text" class="required" size="30" value="<?php echo $this->_var['row']['fuwufei']; ?>" alt=""/>
+				</p>
+				
+			</div>
+			<div class="formBar">
+				<ul>
+					<li><div class="buttonActive"><div class="buttonContent"><button type="submit">保存</button></div></div></li>
+					<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+				</ul>
+			</div>
+		</form>
+	</div>
+</div>

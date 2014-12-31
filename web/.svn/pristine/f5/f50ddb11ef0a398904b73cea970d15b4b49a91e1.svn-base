@@ -1,0 +1,57 @@
+<div class="page">
+	<div class="pageHeader">
+		<form onsubmit="return navTabSearch(this);" action="index.php?action=report&do=t7" method="post">
+		<div class="searchBar">
+			<table class="searchContent">
+				<tr>
+					<td>
+						选择时间范围:<input type="text" name="time_start" size="10" class="date" value="<!--{$postdate_start}-->" readonly="true" />
+						-<input type="text" name="time_over" size="10" class="date" value="<!--{$postdate_over}-->" readonly="true" />
+					</td>
+					<td>
+					<div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div>
+					</td>
+				</tr>
+			</table>
+		</div>
+		</form>
+	</div>
+	<div class="pageContent">
+		<div class="panelBar">
+			<ul class="toolBar">
+				<li><a class="icon" href="index.php?action=report&do=t7t&time_start=<!--{$postdate_start}-->&time_over=<!--{$postdate_over}-->" target="_blank" ><span>查看考勤柱状图</span></a></li>
+				<li><a></a></li>
+			</ul>
+		</div>
+		<table class="list" layouth="65" >
+			<thead>
+				  <tr align=center>
+					<th>销售</th>
+					<th>打卡情况(次)</th>
+					<th>考勤情况(次)</th>
+					<th>查看轨迹地图</th>
+				  </tr>
+			</thead>
+			<tbody>			
+			<!--{foreach from=$list item=row}-->
+				<tr align=center>
+					<td><!--{$row.username}--></td>
+					<td><!--{$row.num}--></td>
+					<td><!--{$row.numz}--> </td>
+					<td><a href="index.php?action=report&do=t7tmap&id=<!--{$row.id}-->&time_start=<!--{$postdate_start}-->&time_over=<!--{$postdate_over}-->" target="_blank">查看</a></td>
+				</tr>
+			<!--{/foreach}-->
+				<tr class="count_hh" align=center>
+					<td>合计</td>
+					<td><!--{$rowtotal.num}--></td>
+					<td><!--{$rowtotal.numz}--></td>
+					<td>-</td>
+				</tr>
+				<tr>
+					<td colspan="4" style="color:#666"><!--{$attendance_txt}--></td>
+				</tr>
+			</tbody>
+		</table>
+		
+	</div>
+</div>

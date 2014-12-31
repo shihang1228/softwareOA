@@ -1,0 +1,140 @@
+<OBJECT ID="jatoolsPrinter" CLASSID="CLSID:B43D3361-D075-4BE2-87FE-057188254255" codebase="jatoolsPrinter.cab#version=5,7,0,0" style="display:none"></OBJECT>
+<script type="text/javascript">
+function doPrint(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r)  { 
+	alertMsg.confirm("确定打印！", {
+			okCall: function(){ 
+				var myDoc ={  
+					marginIgnored:true,
+					settings:{        
+						paperWidth : 2100,
+						paperHeight : 990,
+						orientation : 1 
+						},
+					documents:{html:['<div style="margin-top:40px;margin-left:280px;"><span style="font-size:22px;">'+a+'</span></div><div style="margin-top:40px;margin-left:110px;float:left; height:20px;"><span style="font-size:12px;">'+b+'</span></div><div style="margin-top:40px;margin-left:120px;float:left; height:20px;"><span style="font-size:12px;">'+c+'</span></div><div style="margin-top:40px;margin-left:550px;height:20px;"><span style="font-size:12px;">'+d+'</span></div><div style="margin-top:50px;margin-left:65px;float:left;height:20px;"><span style="font-size:12px;">'+e+'</span></div><div style="margin-top:50px;margin-left:30px;float:left;height:20px;"><span style="font-size:12px;">'+f+'</span></div><div style="margin-top:50px;margin-left:20px;float:left;height:20px;"><span style="font-size:12px;">'+g+'</span></div><div style="margin-top:50px;margin-left:80px;float:left;height:20px;"><span style="font-size:12px;">'+h+'</span></div><div style="margin-top:50px;margin-left:45px;float:left;height:20px;"><span style="font-size:12px;">'+i+'</span></div><div style="margin-top:50px;margin-left:560px;height:20px;"><span style="font-size:12px;">'+j+'</span></div><div style="margin-top:90px;margin-left:120px;float:left;height:20px;"><span style="font-size:12px;">'+k+'</span></div><div style="margin-top:90px;margin-left:10px;float:left;height:20px;"><span style="font-size:12px;">'+l+'</span></div><div style="margin-top:90px;margin-left:350px;height:20px;"><span style="font-size:12px;">'+m+'</span></div><div style="margin-top:4px;margin-left:100px;float:left;height:20px;"><span style="font-size:12px;">'+n+'</span></div><div style="margin-top:4px;margin-left:300px;height:20px;"><span style="font-size:12px;">'+o+'</span></div><div style="margin-top:4px;margin-left:100px;"><span style="font-size:12px;">'+p+'</span></div><div style="margin-top:2px;margin-left:120px;float:left;height:20px;"><span style="font-size:12px;">'+q+'</span></div><div style="margin-top:2px;margin-left:345px;height:20px;"><span style="font-size:12px;">'+r+'</span></div>']},   // 要打印的div 对象在本文档中，控件将从本文档中的 id 为 'page1' 的div对象，作为首页打印 
+					copyrights:'杰创软件拥有版权  www.jatools.com'          // 版权声明,必须  
+					};  
+					jatoolsPrinter.print(myDoc,false);
+					// 直接打印，不弹出打印机设置对话框  
+			}		
+		});		
+	}
+</script>
+<form id="pagerForm" method="post" action="index.php?action=finance">
+	<input type="hidden" name="pageNum" value="1" />
+    <input type="hidden" name="numPerPage" value="{$numPerPage}" />
+	<input type="hidden" name="time_start" value="{$smarty.request.time_start}"/>
+	<input type="hidden" name="time_over" value="{$smarty.request.time_over}"/>
+	 <input type="hidden" name="carNum" value="{$smarty.request.carNum}"/> 
+	 <input type="hidden" name="pname" value="{$smarty.request.pname}"/> 
+	<input type="hidden" name="roomId" value="{$smarty.request.roomId}"/>
+	<input type="hidden" name="supplierId" value="{$smarty.request.supplierId}"/>
+	<input type="hidden" name="inputer" value="{$smarty.request.inputer}"/>
+</form>
+
+<div class="page">
+	<div class="pageHeader">
+		<form onsubmit="return navTabSearch(this);" action="index.php?action=finance" method="post">
+		<div class="searchBar">
+			<table class="searchContent">
+				<tr>
+				    <td>
+						车牌号:<input type="text" name="carNum" size="12" value="{$smarty.request.carNum}"/>
+					</td>
+					
+					<td>
+						物品名称:<input type="text" name="pname" size="12" value="{$smarty.request.pname}"/>
+					</td>	
+					<td>
+						<label style="width:48">选择库房:</label>
+						<!--{$roomId_cn}-->
+					</td>
+					
+				</tr>
+				<tr>
+					
+					<td>
+						登记时间:<input type="text" name="time_start" size="9" class="date" readonly="true" value="{$smarty.request.time_start}"/>
+						-<input type="text" name="time_over" size="9" class="date" readonly="true" value="{$smarty.request.time_over}"/>
+					</td>
+					<td>
+						操作者:<input type="text" name="inputer" size="12" value="{$smarty.request.inputer}"/>
+					</td>
+					<td>
+						<label style="width:60">选择供货商:</label>
+						<!--{$supplierId_cn}-->
+					</td>
+					<td>
+					<div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div>
+					</td>
+				</tr>
+			</table>
+		</div>
+		</form>
+	</div>
+	<div class="pageContent">
+	
+		<table class="list" layouth="93" style="width:1300px;">
+			<thead>
+				<tr align=center>
+					<th align="center">单号</th>
+					<th align="center">公司名称</th>
+					<th align="center">车牌号</th>
+					<th align="center">商品名称</th>
+					<th align="center">型号</th>
+					<th align="center">数量</th>
+					<th align="center">售价</th>
+					<th align="center">供货商名称</th>
+					<th align="center">库房名称</th>
+					<th align="center">核对时间</th>
+					<th align="center">货款合计</th>
+					<th align="center">收款数量</th>
+					<th align="center">收款合计</th>
+					<th align="center">操作者</th>
+					<th align="center">确认收款</th>
+				</tr>
+			</thead>
+		
+			<tbody>			
+			<!--{foreach from=$list item=row}-->
+				<tr align=center>
+					<td><!--{$qianzhui}{$row.danhao}--></td>
+					<td><!--{$row.company}--></td>
+					<td><!--{$row.carNum}--></td>
+					<td><!--{$row.pname}--></td>
+					<td><!--{$row.model}--></td>
+					<td><!--{$row.quantity}--></td>
+					<td><!--{$row.outprice}--></td>
+					<td><!--{$row.sname}--></td>
+					<td><!--{$row.rname}--></td>
+					<td><!--{$row.checktime}--></td>
+					<td><!--{$row.heji}--></td>
+					<td><!--{$row.shouquantity}--></td>
+					<td><!--{$row.shouheji}--></td>
+					<td><!--{$row.financeName}--></td>
+					{if $row.judge==1}
+					<td><a class="add" align="center" href="?action=finance&do=sure&id={$row.id}" target="ajaxTodo" targetType="navTab" title="是否确认收款？"><span>确认收款</span></a></td>
+					{/if}
+					{if $row.judge==2||$row.judge==3}
+					<td><a class="print" href="javascript:void(0)" onclick="doPrint('山西冀东启明科技有限公司','{$qianzhui}{$row.danhao}','{$row.pname}','{$row.company}','1','{$row.chehao}','{$row.chejiaNum}','{$row.pname}','','{$row.shouheji}','','','{$row.time}','{$row.financeName}','admin1','山西太原市','0351-7091699','0351-7091688')"><span>打印收据</span></a></td>
+					{/if}
+				</tr>
+			<!--{/foreach}-->
+			</tbody>
+			
+		</table>
+		<div class="panelBar">
+			<div class="pages">
+				<span>每页显示</span>
+					<select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value})">
+						<option value="24" {if $numPerPage==24}selected="selected"{/if}>24</option>
+						<option value="50" {if $numPerPage==50}selected="selected"{/if}>50</option>
+						<option value="100" {if $numPerPage==100}selected="selected"{/if}>100</option>
+						<option value="200" {if $numPerPage==200}selected="selected"{/if}>200</option>
+					</select>
+				<span>条</span>
+				<span>共{$total}条</span>
+			</div>
+			<div class="pagination" targetType="navTab" totalCount="{$total}" numPerPage="{$numPerPage}" pageNumShown="10" currentPage="{$pageNum}"></div>
+		</div>
+	</div>
+</div>

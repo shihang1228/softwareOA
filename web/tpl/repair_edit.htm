@@ -1,0 +1,65 @@
+
+<div class="page">
+	<div class="pageContent">
+		<form method="post" action="?action=repair&do=updata" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone);">
+		<input type="hidden" style="display:none;" name="id" value="<!--{$row.id}-->" />
+			<div class="pageFormContent" layoutH="56">
+				<p>
+					<label>车牌号：</label>
+					<input name="carNum" class="carNum textInput required" readonly="readonly" type="text" size="30" value="<!--{$row.carNum}-->" alt=""/>
+				</p>
+				<p>
+					<label>型号：</label>
+					<input name="model" class="required" readonly="readonly" type="text" size="30" value="<!--{$row.model}-->" alt=""/>
+				</p>
+				<p>
+					<label>拆取日期：</label>
+					<input name="chaidate" readonly="readonly" type="text" size="30" value="<!--{$row.chaidate}-->" alt=""/>
+				</p>
+				<p>
+					<label>返厂日期：</label>
+					<input name="changdate" class="date" type="text" size="30" value="<!--{$row.changdate}-->" alt=""/>
+				</p>	
+				<p>
+					<label>返回日期：</label>
+					<input name="huidate" class="date" type="text" size="30" value="<!--{$row.huidate}-->" alt=""/>
+				</p>	
+				<p>
+					<label>安装日期：</label>
+					<input name="andate" class="date" type="text" size="30" value="<!--{$row.andate}-->" alt=""/>
+				</p>	
+				<p>
+					<label>是否过保修期：</label>
+					<select class="combox" name="baoxiuqi">
+					<option value="<!--{$row.baoxiuqi}-->" selected="selected"><!--{$row.baoxiuqi}--></option>
+					{if $row.baoxiuqi=="否"}<option value="是">是</option>{/if}
+					{if $row.baoxiuqi=="是"}<option value="否">否</option>{/if}
+					</select>
+				</p>	
+				<p>
+					<label>是否收取检修费：</label>
+					<select class="combox" name="jianxiufei">
+					<option value="<!--{$row.jianxiufei}-->" selected="selected"><!--{$row.jianxiufei}--></option>
+					{if $row.jianxiufei=="否"}<option value="是">是</option><option value="不收">不收</option>{/if}
+					{if $row.jianxiufei=="是"}<option value="否">否</option><option value="不收">不收</option>{/if}
+					{if $row.jianxiufei=="不收"}<option value="是">是</option><option value="否">否</option>{/if}
+					</select>
+				</p>							
+				<p>
+					<label>拆取人：</label>
+					<input name="chaipeople" class="required" type="text" size="30" value="<!--{$row.chaipeople}-->" alt=""/>
+				</p>
+				<p>
+					<label>备注：</label>
+					<input name="beizhu" type="text" size="30" value="<!--{$row.beizhu}-->" alt=""/>
+				</p>
+			</div>
+			<div class="formBar">
+				<ul>
+					<li><div class="buttonActive"><div class="buttonContent"><button type="submit">保存</button></div></div></li>
+					<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+				</ul>
+			</div>
+		</form>
+	</div>
+</div>

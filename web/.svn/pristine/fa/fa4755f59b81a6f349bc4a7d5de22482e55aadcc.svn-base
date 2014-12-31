@@ -1,0 +1,50 @@
+<?php
+header("Content-type: text/html; charset=utf-8");
+if(!defined('CORE'))exit("error!"); 
+
+//列表	
+if($do==""){
+	//If_rabc($action,$do); //检测权限	
+	//判断检索值
+	if($_POST['pname']){$search .= " and p.name like '%$_POST[pname]%'";}
+	if($_POST['roomId']){$search .= " and rid = '$_POST[roomId]'";}
+	//判断如果是维护只显示自己的
+	//if($_SESSION[roleid]=="3"){$search .= " and salesid = '$_SESSION[userid]'";} //维护
+	
+	//设置分页
+	if($_POST[numPerPage]=="")
+	{
+		$numPerPage="24";
+	}else{
+		$numPerPage=$_POST[numPerPage];
+	}
+
+	if($_POST[pageNum]==""||$_POST[pageNum]=="0" )
+	{
+		$pageNum="0";
+	}else{
+		$pageNum=($_POST[pageNum]-1)*$numPerPage;
+	}
+
+	
+	//查询入库商品的相关信息
+	$sql="select p.name as pname,r.name as rname,a.sum3+sum(rv_diaobo.quantity) as sum4 from(SELECT rv_storage_ru.id,rv_diaobo.productId as pid,rv_diaobo.roomruId as rid,sum(rv_storage_ru.quantity)-sum(rv_storage_chu.quantity)-sum(rv_diaobo.quantity) as sum3  FROM `rv_storage_ru`,`rv_storage_chu`,`rv_product` ,`rv_room`,`rv_diaobo` where rv_storage_ru.roomId=rv_diaobo.roomchuId and rv_storage_ru.productId=rv_diaobo.productId and rv_storage_ru.productId=rv_product.id and rv_storage_ru.roomId=rv_room.id group by pid,rid) as a,`rv_diaobo`,`rv_product` as p,`rv_room` as r where a.pid=rv_diaobo.productId and a.rid=rv_diaobo.roomruId and a.pid=p.id and a.rid=r.id $search group by a.pid,a.rid";
+	$db->query($sql);
+	$list=$db->fetchAll();
+	$info_num=mysql_query($sql);
+	$total=mysql_num_rows($info_num);//总条数
+	//模版
+	$smt = new smarty();smarty_cfg($smt);
+	$smt->assign('list',$list);	 
+ 	$smt->assign('roomId_cn',select($room_list,"roomId","","仓库选择"));
+	$smt->assign('numPerPage',$_POST[numPerPage]); //显示条数
+	$smt->assign('pageNum',$_POST[pageNum]); //当前页数
+	$smt->assign('total',$total);
+	$smt->assign('title',"产品列表"); 
+	$smt->display('storage_list.htm');
+	exit;	
+}
+
+
+
+?>

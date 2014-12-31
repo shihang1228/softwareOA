@@ -1,0 +1,59 @@
+<div class="page">
+	<div class="pageHeader">
+		<form onsubmit="return navTabSearch(this);" action="index.php?action=report&do=t7" method="post">
+		<div class="searchBar">
+			<table class="searchContent">
+				<tr>
+					<td>
+						选择时间范围:<input type="text" name="time_start" size="10" class="date" value="<?php echo $this->_var['postdate_start']; ?>" readonly="true" />
+						-<input type="text" name="time_over" size="10" class="date" value="<?php echo $this->_var['postdate_over']; ?>" readonly="true" />
+					</td>
+					<td>
+					<div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div>
+					</td>
+				</tr>
+			</table>
+		</div>
+		</form>
+	</div>
+	<div class="pageContent">
+		<div class="panelBar">
+			<ul class="toolBar">
+				<li><a class="icon" href="index.php?action=report&do=t7t&time_start=<?php echo $this->_var['postdate_start']; ?>&time_over=<?php echo $this->_var['postdate_over']; ?>" target="_blank" ><span>查看考勤柱状图</span></a></li>
+				<li><a></a></li>
+			</ul>
+		</div>
+		<table class="list" layouth="65" >
+			<thead>
+				  <tr align=center>
+					<th>销售</th>
+					<th>打卡情况(次)</th>
+					<th>考勤情况(次)</th>
+					<th>查看轨迹地图</th>
+				  </tr>
+			</thead>
+			<tbody>			
+			<?php $_from = $this->_var['list']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('', 'row');if (count($_from)):
+    foreach ($_from AS $this->_var['row']):
+?>
+				<tr align=center>
+					<td><?php echo $this->_var['row']['username']; ?></td>
+					<td><?php echo $this->_var['row']['num']; ?></td>
+					<td><?php echo $this->_var['row']['numz']; ?> </td>
+					<td><a href="index.php?action=report&do=t7tmap&id=<?php echo $this->_var['row']['id']; ?>&time_start=<?php echo $this->_var['postdate_start']; ?>&time_over=<?php echo $this->_var['postdate_over']; ?>" target="_blank">查看</a></td>
+				</tr>
+			<?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
+				<tr class="count_hh" align=center>
+					<td>合计</td>
+					<td><?php echo $this->_var['rowtotal']['num']; ?></td>
+					<td><?php echo $this->_var['rowtotal']['numz']; ?></td>
+					<td>-</td>
+				</tr>
+				<tr>
+					<td colspan="4" style="color:#666"><?php echo $this->_var['attendance_txt']; ?></td>
+				</tr>
+			</tbody>
+		</table>
+		
+	</div>
+</div>

@@ -1,0 +1,31 @@
+
+<div class="page">
+	<div class="pageContent">
+		<form method="post" action="?action=note&do=add" class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDone);">	
+			<div class="pageFormContent" layoutH="56">
+				<p>
+					<label>发送者：</label>					
+					<!--{$sendid_cn}-->
+				</p>
+				<p>
+					<label>接受者：</label>					
+					<!--{$collectid_cn}-->
+				</p>
+				<p>
+					<label>公开：</label>	
+					<input type="radio" name="open" value="0" checked/>否
+					<input type="radio" name="open" value="1"/>是
+				</p>
+				<p>
+					<label>内容：</label>
+					<textarea rows="5" cols="80" class="textInput" name="intro" class="required"></textarea>
+				</p>
+			</div>
+			<div class="formBar">
+				<ul>
+					<li><div class="buttonActive"><div class="buttonContent"><button type="submit">保存</button></div></div></li>
+				</ul>
+			</div>
+		</form>
+	</div>
+</div>

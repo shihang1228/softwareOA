@@ -1,0 +1,49 @@
+
+<div class="page">
+	<div class="pageContent">
+		<form method="post" action="?action=info&do=add" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone);">		
+		<input type="hidden" style="display:none;"  name="salesid" value="<!--{$smarty.session.userid}-->">
+			<div class="pageFormContent" layoutH="56">
+				<p>
+					<label>车辆名称：</label>
+					<input name="name" class="required" type="text" size="30" value="" alt=""/>
+				</p>
+				{if $smarty.session.roleid == "1" or $smarty.session.roleid == "2" }
+				<p>
+					<label>隶属维护：</label>
+					<!--{$salesid_cn}-->
+				</p>
+				{/if}
+				<p>
+					<label>所属区域：</label>					
+					<!--{$areaid_cn}-->
+				</p>
+				<p>
+					<label>所在公司：</label>
+					<!--{$typeid_cn}-->
+				</p>		
+				<p>
+					<label>客户地址：</label>
+					<input name="address" class="required" type="text" size="30" value="" alt=""/>
+				</p>	
+				<p>
+					<label>联系人：</label>
+					<input name="linkman" class="required" type="text" size="30" value="" alt=""/>
+				</p>
+				<p>
+					<label>电话：</label>
+					<input name="tel" class="required" type="text" size="30" value="" alt=""/>
+				</p>
+				<p>
+					<label>备注：</label>
+					<textarea rows="5" cols="60" class="textInput" name="intro"></textarea>
+				</p>
+			</div>
+			<div class="formBar">
+				<ul>
+					<li><div class="buttonActive"><div class="buttonContent"><button type="submit">保存</button></div></div></li>
+				</ul>
+			</div>
+		</form>
+	</div>
+</div>

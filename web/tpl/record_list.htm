@@ -1,0 +1,133 @@
+<form id="pagerForm" method="post" action="index.php?action=record">
+	<input type="hidden" name="pageNum" value="1" />
+    <input type="hidden" name="numPerPage" value="{$numPerPage}" />
+	<input type="hidden" name="chejiaNum" value="{$smarty.request.chejiaNum}"/> 
+	<input type="hidden" name="carNum" value="{$smarty.request.carNum}"/> 
+	<input type="hidden" name="deviceId" value="{$smarty.request.deviceId}"/> 
+	<input type="hidden" name="simNum" value="{$smarty.request.simNum}"/> 
+	<input type="hidden" name="inputer" value="{$smarty.request.inputer}"/> 
+	<input type="hidden" name="owner" value="{$smarty.request.owner}"/> 
+	<input type="hidden" name="lasttime" value="{$smarty.request.lasttime}"/> 
+	<input type="hidden" name="judge" value="{$smarty.request.judge}"/> 
+</form>
+
+<div class="page">
+	<div class="pageHeader">
+		<form onsubmit="return navTabSearch(this);" action="index.php?action=record" method="post">
+		<div class="searchBar">
+			<table class="searchContent">
+				<tr>
+					<td>
+						车架号:<input type="text" name="chejiaNum" size="15" value="{$smarty.request.chejiaNum}"/>
+					</td>
+					<td>
+						车牌号:<input type="text" name="carNum" size="15" value="{$smarty.request.carNum}"/>
+					</td>
+					<td>
+						终端ID:<input type="text" name="deviceId" size="15" value="{$smarty.request.deviceId}"/>
+					</td>
+					<td>
+						SIM卡号:<input type="text" name="simNum" size="15" value="{$smarty.request.simNum}"/>
+					</td>
+					
+					
+				</tr>
+				<td>
+						操作人:<input type="text" name="inputer" size="15" value="{$smarty.request.inputer}"/>
+					</td>
+					<td>
+						车主/业户:<input type="text" name="owner" size="15" value="{$smarty.request.owner}"/>
+					</td>
+					<td>
+						操作时间:<input type="text" class="date" name="lasttime" size="15" value="{$smarty.request.lasttime}"/>
+					</td>
+					<td>
+						<label style="width:46px">审核状态:</label>
+						<select class="combox" name="judge">
+							<option value="">请选择</option>
+							<option value="2">已审核</option>
+							<option value="1">未审核</option>
+						</select>
+					</td>
+					<td>
+					<div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div>
+					</td>
+				<tr>
+				
+				</tr>
+			</table>
+		</div>
+		</form>
+	</div>
+	<div class="pageContent">
+		<div class="panelBar">
+			<ul class="toolBar">
+				<li><a class="add" href="?action=record&do=new" target="navTab" mask="true"><span>新增数据记录</span></a></li>
+				<li><a class="delete" href="?action=record&do=del&id={id}" target="ajaxTodo"  title="确定要删除吗?"><span>删除数据记录</span></a></li>
+				<li><a class="edit" href="?action=record&do=edit&id={id}" target="navTab" mask="true"><span>修改数据记录</span></a></li>
+				<li><a class="add" href="?action=record&do=show&id={id}" target="navTab" mask="true"><span>明细</span></a></li>
+				<li><a class="edit" href="?action=record&do=editbeizhu&id={id}" target="dialog" mask="true"><span>添加备注</span></a></li>
+			</ul>
+		</div>
+		<table class="list" layouth="122" style="width:1585px;">
+			<thead>
+				<tr align=center>
+					<th width="100" align="center">车牌号</th>
+					<th width="150" align="center">车辆识别代码/车架号</th>
+					<th width="120" align="center">终端ID</th>
+					<th width="100" align="center">SIM卡号</th>
+					<th width="135" align="center">车主/业户</th>
+					<th width="80" align="center">联系人</th>
+					<th width="100" align="center">联系手机</th>
+					<th width="120" align="center">操作人</th>
+					<th width="120" align="center">最后操作时间</th>
+					<th width="120" align="center">审核状态</th>
+					<th width="240" align="center">备注</th>
+					<th width="200" align="center">所属分公司</th>
+						
+				</tr>
+			</thead>
+			<tbody>			
+			<!--{foreach from=$list item=row}-->
+				<tr target="id" rel="<!--{$row.id}-->" align=center>
+					<td><!--{$row.carNum}--></td>
+					<td><!--{$row.chejiaNum}--></td>
+					<td><!--{$row.deviceId}--></td>
+					<td><!--{$row.simNum}--></td>
+					<td><!--{$row.owner}--></td>
+					<td><!--{$row.linkman}--></td>
+					<td><!--{$row.linktel}--></td>
+					<td><!--{$row.inputer}--></td>	
+					<td>{if $row.lasttime != 0}<!--{$row.lasttime}-->{/if}</td>		
+					<td>
+					{if $row.judge==1}
+					<a class="add" align="center" href="?action=record&do=sure&id={$row.id}" target="ajaxTodo" targetType="dialog" title="是否审核？"><span>审核</span></a>
+					{/if}
+					{if $row.judge==2}
+					已审核
+					{/if}
+					</td>
+					<td><!--{$row.beizhu}--></td>
+					<td><!--{$row.company1}--></td>
+				</tr>			
+			<!--{/foreach}-->
+			</tbody>
+		</table>
+		<div class="panelBar">
+			<div class="pages">
+				<span>每页显示</span>
+					<select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value})">
+						<option value="24" {if $numPerPage==24}selected="selected"{/if}>24</option>
+						<option value="50" {if $numPerPage==50}selected="selected"{/if}>50</option>
+						<option value="100" {if $numPerPage==100}selected="selected"{/if}>100</option>
+						<option value="200" {if $numPerPage==200}selected="selected"{/if}>200</option>
+					</select>
+				<span>条</span>
+				<span>共{$total}条</span>
+			</div>
+			
+			<div class="pagination" targetType="navTab" totalCount="{$total}" numPerPage="{$numPerPage}" pageNumShown="10" currentPage="{$pageNum}"></div>
+
+		</div>
+	</div>
+</div>

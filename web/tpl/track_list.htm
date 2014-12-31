@@ -1,0 +1,70 @@
+<form id="pagerForm" method="post" action="index.php?action=track">
+	<input type="hidden" name="pageNum" value="1" />
+    <input type="hidden" name="numPerPage" value="{$numPerPage}" />
+	<input type="hidden" name="name" value="{$smarty.request.name}"/>
+	<input type="hidden" name="time_start" value="{$smarty.request.time_start}"/>
+	<input type="hidden" name="time_over" value="{$smarty.request.time_over}"/>
+</form>
+
+<div class="page">
+	<div class="pageHeader">
+		<form onsubmit="return navTabSearch(this);" action="index.php?action=track" method="post">
+		<div class="searchBar">
+			<table class="searchContent">
+				<tr>
+					<td>
+						<!--{$salesid_cn}-->
+					</td>
+					<td>
+						上传时间:<input type="text" name="time_start" size="9" class="date" readonly="true" value="{$smarty.request.time_start}"/>
+						-<input type="text" name="time_over" size="9" class="date" readonly="true" value="{$smarty.request.time_over}"/>
+					</td>
+					<td>
+					<div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div>
+					</td>
+				</tr>
+			</table>
+		</div>
+		</form>
+	</div>
+	<div class="pageContent">
+		<table class="list" layouth="64" style="width:620px;">
+			<thead>
+				<tr>
+					<th align="center">ID</th>
+					<th align="center">销售</th>
+					<th align="center">位置描述</th>
+					<th align="center">上传时间</th>
+					<th align="center">查看地图</th>
+				</tr>
+			</thead>
+			<tbody>			
+			<!--{foreach from=$list item=row}-->
+				<tr target="id" rel="<!--{$row.id}-->" >
+					<td><!--{$row.id}--></td>
+					<td><!--{$row.salesid_txt}--></td>
+					<td><!--{$row.location}--> </td>
+					<td><!--{$row.created_at}--></td>
+					<td><a href="?action=track&do=show&id=<!--{$row.id}-->" target="blank" ><span>查看地图</span></a></td>
+				</tr>			
+			<!--{/foreach}-->
+			</tbody>
+		</table>
+		<div class="panelBar">
+			<div class="pages">
+				<span>每页显示</span>
+					<select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value})">
+						<option value="24" {if $numPerPage==24}selected="selected"{/if}>24</option>
+						<option value="50" {if $numPerPage==50}selected="selected"{/if}>50</option>
+						<option value="100" {if $numPerPage==100}selected="selected"{/if}>100</option>
+						<option value="200" {if $numPerPage==200}selected="selected"{/if}>200</option>
+					</select>
+				<span>条</span>
+				<span>共{$total}条</span>
+			</div>
+			
+			<div class="pagination" targetType="navTab" totalCount="{$total}" numPerPage="{$numPerPage}" pageNumShown="10" currentPage="{$pageNum}"></div>
+
+		</div>
+	</div>
+</div>

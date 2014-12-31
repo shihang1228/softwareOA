@@ -1,0 +1,64 @@
+<form id="pagerForm" method="post" action="index.php?action=track">
+	<input type="hidden" name="pageNum" value="1" />
+    <input type="hidden" name="numPerPage" value="20" />
+	<input type="hidden" name="name" value="<?php echo $_REQUEST['name']; ?>"/>
+	<input type="hidden" name="time_start" value="<?php echo $_REQUEST['time_start']; ?>"/>
+	<input type="hidden" name="time_over" value="<?php echo $_REQUEST['time_over']; ?>"/>
+</form>
+
+<div class="page">
+	<div class="pageHeader">
+		<form onsubmit="return navTabSearch(this);" action="index.php?action=track" method="post">
+		<div class="searchBar">
+			<table class="searchContent">
+				<tr>
+					<td>
+						<?php echo $this->_var['salesid_cn']; ?>
+					</td>
+					<td>
+						上传时间:<input type="text" name="time_start" size="9" class="date" readonly="true" value="<?php echo $_REQUEST['time_start']; ?>"/>
+						-<input type="text" name="time_over" size="9" class="date" readonly="true" value="<?php echo $_REQUEST['time_over']; ?>"/>
+					</td>
+					<td>
+					<div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div>
+					</td>
+				</tr>
+			</table>
+		</div>
+		</form>
+	</div>
+	<div class="pageContent">
+		<table class="list" layouth="64" style="width:620px;">
+			<thead>
+				<tr>
+					<th align="center">ID</th>
+					<th align="center">销售</th>
+					<th align="center">位置描述</th>
+					<th align="center">上传时间</th>
+					<th align="center">查看地图</th>
+				</tr>
+			</thead>
+			<tbody>			
+			<?php $_from = $this->_var['list']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('', 'row');if (count($_from)):
+    foreach ($_from AS $this->_var['row']):
+?>
+				<tr target="id" rel="<?php echo $this->_var['row']['id']; ?>" >
+					<td><?php echo $this->_var['row']['id']; ?></td>
+					<td><?php echo $this->_var['row']['salesid_txt']; ?></td>
+					<td><?php echo $this->_var['row']['location']; ?> </td>
+					<td><?php echo $this->_var['row']['created_at']; ?></td>
+					<td><a href="?action=track&do=show&id=<?php echo $this->_var['row']['id']; ?>" target="blank" ><span>查看地图</span></a></td>
+				</tr>			
+			<?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
+			</tbody>
+		</table>
+		<div class="panelBar">
+			<div class="pages">
+				<span>共<?php echo $this->_var['total']; ?>条</span>
+			</div>
+			
+			<div class="pagination" targetType="navTab" totalCount="<?php echo $this->_var['total']; ?>" numPerPage="20" pageNumShown="10" currentPage="<?php echo $this->_var['pageNum']; ?>"></div>
+
+		</div>
+	</div>
+</div>

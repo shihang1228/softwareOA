@@ -1,0 +1,42 @@
+<div class="page">
+	<div class="pageContent">
+			<div class="pageFormContent" layoutH="56">
+				<p>
+					<label>所属销售：</label>
+					<!--{$row.salesid_txt}-->
+				</p>
+				<p>
+					<label>客户名称：</label>
+					<!--{$row.name}-->
+				</p>
+				<p>
+					<label>区域：</label>
+					<!--{$row.areaid_txt}-->
+				</p>
+				<p>
+					<label>客户类型：</label>
+					<!--{$row.typeid_txt}-->
+				</p>
+				<p>
+					<label>客户地址：</label>
+					<!--{$row.address}-->
+				</p>
+				<p>
+					<label>联系人：</label>
+					<!--{$row.linkman}-->
+				</p>
+				<p>
+					<label>客户电话：</label>
+					<!--{$row.tel}-->
+				</p>
+				<p>
+					<label>登记时间：</label>
+					<!--{$row.created_at}-->
+				</p>
+				<p>
+					<label>备注：</label>
+					<!--{$row.intro|default:无}-->
+				</p>
+			</div>
+	</div>
+</div>

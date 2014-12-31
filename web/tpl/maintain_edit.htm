@@ -1,0 +1,51 @@
+<div class="page">
+	<div class="pageContent">
+		<form method="post" action="?action=maintain&do=updata" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone);">
+		<input type="hidden" style="display:none;" name="id" value="<!--{$row.id}-->" />
+			<div class="pageFormContent" layoutH="56">
+				<p>
+					<label>车牌号：</label>
+					<input name="carNum" class="carNum textInput required" readonly="readonly" type="text" size="30" value="<!--{$row.carNum}-->" alt=""/>
+				</p>
+				<p>
+					<label>型号：</label>
+					<input name="model" class="required" readonly="readonly" type="text" size="30" value="<!--{$row.model}-->" alt=""/>
+				</p>
+				<p>
+					<label>返修原因：</label>
+					<input name="reason" class="required" type="text" size="30" value="<!--{$row.reason}-->" alt=""/>
+				</p>
+				<p>
+					<label>收到时间：</label>
+					<input name="getdate" class="date required" type="text" size="30" value="<!--{$row.getdate}-->" alt=""/>
+				</p>
+				<p>
+					<label>检测现象：</label>
+					<input name="phenomenon" type="text" size="30" value="<!--{$row.phenomenon}-->" alt=""/>
+				</p>
+				<p>
+					<label>维修结果(上线/定位/照片)：</label>
+					<input name="reasult" type="text" size="30" value="<!--{$row.reasult}-->" alt=""/>
+				</p>	
+				<p>
+					<label>返回时间：</label>
+					<input name="backdate" class="date" type="text" size="30" value="<!--{$row.backdate}-->" alt=""/>
+				</p>	
+				<p>
+					<label>检修次数：</label>
+					<input name="mainNum" type="text" size="30" value="<!--{$row.mainNum}-->" alt=""/>
+				</p>
+				<p>
+					<label>备注：</label>
+					<input name="beizhu" type="text" size="30" value="<!--{$row.beizhu}-->" alt=""/>
+				</p>
+			</div>
+			<div class="formBar">
+				<ul>
+					<li><div class="buttonActive"><div class="buttonContent"><button type="submit">保存</button></div></div></li>
+					<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+				</ul>
+			</div>
+		</form>
+	</div>
+</div>

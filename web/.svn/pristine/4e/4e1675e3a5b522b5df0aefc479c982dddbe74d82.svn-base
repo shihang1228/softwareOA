@@ -1,0 +1,18 @@
+<div class="page">
+	<div class="pageContent">
+			<div class="pageFormContent" layoutH="56">
+				<p>
+					<label>标题：</label>
+					<?php echo $this->_var['row']['title']; ?>
+				</p>
+				<p>
+					<label>类型：</label>
+					<?php echo $this->_var['row']['doctid_txt']; ?>
+				</p>
+				<p>
+					<label>备注：</label>
+					<?php echo empty($this->_var['row']['intro']) ? '无' : $this->_var['row']['intro']; ?>
+				</p>
+			</div>
+	</div>
+</div>

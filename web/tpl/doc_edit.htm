@@ -1,0 +1,30 @@
+<div class="page">
+	<div class="pageContent">
+		<form method="post" action="?action=doc&do=updata" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone);">
+		<input type="hidden" style="display:none;" name="id" value="<!--{$row.id}-->" />
+			<div class="pageFormContent" layoutH="56">
+				<p>
+					<label>客户名称：</label>
+					<input name="title" class="required" type="text" size="30" value="<!--{$row.title}-->" alt=""/>
+				</p>
+				<p>
+					<label>类型：</label>					
+					<!--{$doctid_cn}-->
+				</p>
+				<p>
+					<label>备注：</label>
+					<textarea class="editor" name="intro" rows="12" cols="100"
+								upImgUrl="?action=doc&do=upload" upImgExt="jpg,jpeg,gif,png" >
+								<!--{$row.intro}-->
+					</textarea>
+				</p>
+			</div>
+			<div class="formBar">
+				<ul>
+					<li><div class="buttonActive"><div class="buttonContent"><button type="submit">保存</button></div></div></li>
+					<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+				</ul>
+			</div>
+		</form>
+	</div>
+</div>

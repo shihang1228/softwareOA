@@ -1,0 +1,95 @@
+<form id="pagerForm" method="post" action="index.php?action=fenqicar">
+	<input type="hidden" name="pageNum" value="1" />
+    <input type="hidden" name="numPerPage" value="{$numPerPage}" />
+	<input type="hidden" name="company" value="{$smarty.request.company}"/> 
+	<input type="hidden" name="carNum" value="{$smarty.request.carNum}"/>
+</form>
+
+<div class="page">
+	<div class="pageHeader">
+		<form onsubmit="return navTabSearch(this);" action="index.php?action=fenqicar" method="post">
+		<div class="searchBar">
+			<table class="searchContent">
+				<tr>
+					<td>
+						<label style="width:48">公司名称:</label>
+						<!--{$company_cn}-->
+					</td>
+					<td>
+						车牌号:<input type="text" name="carNum" size="12" value="{$smarty.request.carNum}"/>
+					</td>
+					<td>
+					<div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div>
+					</td>
+				</tr>
+			</table>
+		</div>
+		</form>
+		</div>
+	<div class="pageContent">
+		<div class="panelBar">
+			<ul class="toolBar">
+				<li><a class="add" href="?action=fenqicar&do=new" target="dialog" mask="true"><span>还款</span></a></li>
+				<li><a class="add" href="?action=fenqicar&do=show&id={id}" target="dialog" mask="true"><span>明细</span></a></li>
+				<form name="excel" method="post" action="index.php?action=carinfo&do=print">
+					<input type="hidden" name="search" size="12" value="{$search}"/>
+					<li><a class="add" href="###" onclick="JavaScript:document.excel.submit();" target="dwzExport" targetType="dialog" title="是要导出这些记录吗?"><span>导出EXCEL</span></a></li>
+				</form>
+			</ul>
+		</div>
+		<table class="list" layouth="92" style="width:1450px;" style='word-break:break-all;word-wrap:break-word'>
+			<thead>
+				<tr align=center>
+					<th width="50" align="center">ID</th>
+					<th width="200" align="center">公司名称</th>
+					<th width="100" align="center">车牌号</th>
+					<th width="120" align="center">已还金额</th>
+					<th width="120" align="center">还款日期</th>
+					<th width="120" align="center">总金额</th>
+					<th width="120" align="center">总年限</th>
+					<th width="120" align="center">剩余金额</th>
+					<th width="150" align="center">备注</th>
+					<th width="150" align="center">编辑分期付款信息</th>
+					<th width="200" align="center">所属分公司</th>
+				</tr>
+			</thead>
+			<tbody>			
+			<!--{foreach from=$list item=row}-->
+				<tr target="id" rel="<!--{$row.id}-->" align=center>
+					<td><!--{$row.id}--></td>
+					<td width="200px" style="word-break:break-all;"><!--{$row.company}--></td>
+					<td><!--{$row.carNum}--></td>	
+					<td>{if $row.money != 0}<!--{$row.money}-->{/if}</td>
+					<td>{if $row.repaydate != 0}<!--{$row.repaydate}-->月{/if}</td>
+					<td>{if $row.totalmoney != 0}<!--{$row.totalmoney}-->{/if}</td>
+					<td><!--{$row.totalyear}--></td>
+					<td>{if $row.lastmoney != 0}<!--{$row.lastmoney}-->{/if}</td>
+					<td><!--{$row.beizhu}--></td>
+					<td>
+					{if $row.judge==1}
+					<li><a class="edit" href="?action=fenqicar&do=edit&id={$row.id}" target="dialog" mask="true"><span>编辑信息</span></a></li>
+					{/if}
+					</td>
+					<td><!--{$row.company1}--></td>
+				</tr>			
+			<!--{/foreach}-->
+			</tbody>
+		</table>
+		<div class="panelBar">
+			<div class="pages">
+				<span>每页显示</span>
+					<select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value})">
+						<option value="24" {if $numPerPage==24}selected="selected"{/if}>24</option>
+						<option value="50" {if $numPerPage==50}selected="selected"{/if}>50</option>
+						<option value="100" {if $numPerPage==100}selected="selected"{/if}>100</option>
+						<option value="200" {if $numPerPage==200}selected="selected"{/if}>200</option>
+					</select>
+				<span>条</span>
+				<span>共{$total}条</span>
+			</div>
+			
+			<div class="pagination" targetType="navTab" totalCount="{$total}" numPerPage="{$numPerPage}" pageNumShown="10" currentPage="{$pageNum}"></div>
+
+		</div>
+	</div>
+</div>

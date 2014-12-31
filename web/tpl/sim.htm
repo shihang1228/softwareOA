@@ -1,0 +1,63 @@
+﻿<form id="pagerForm" method="post" action="index.php?action=sim&do=search">
+	<input type="hidden" name="pageNum" value="1" />
+    <input type="hidden" name="numPerPage" value="24" />
+	<input type="hidden" name="simNum" value="{$smarty.request.simNum}"/>
+	<input type="hidden" name="simstate" value="{$smarty.request.simstate}"/>
+	<input type="hidden" name="zifei" value="{$smarty.request.zifei}"/>
+</form>
+<div class="page">
+<div class="pageHeader">
+		<form onsubmit="return dwzSearch(this, 'dialog');" action="index.php?action=sim&do=search" method="post">
+		<div class="searchBar">
+			<table class="searchContent">
+				<tr>
+					<td>
+						SIM卡号:<input type="text" name="simNum" size="30" value="{$smarty.request.simNum}"/>
+					</td>
+			
+					<td>
+					<div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div>
+					</td>
+					
+				</tr>
+			</table>
+		</div>
+		</form>
+		</div>
+	<div class="pageContent">
+		<table class="list" layouth="92" style="width:570px;">
+			<thead>
+			
+				<tr align=center>
+					<th width="20" align="center">ID</th>
+					<th width="100" align="center">SIM卡号</th>
+					<th width="150" align="center">SIM卡状态</th>
+					<th width="150" align="center">资费</th>
+				</tr>	
+			</thead>
+			
+			<tbody>			
+			<!--{foreach from=$list item=row}-->
+				<tr target="id" rel="<!--{$row.id}-->" align=center>
+					<td><!--{$row.id}--></td>	
+					<td><!--{$row.cardnum}--></td>
+					<td><!--{$row.simstate}--></td>
+					<td><!--{$row.zifei}--></td>
+					<td>
+					<a class="btnSelect" href="javascript:$.bringBack({simNum:'<!--{$row.cardnum}-->'})" title="查找带回">选择</a>
+				</td>
+				</tr>			
+			<!--{/foreach}-->
+			</tbody>
+		</table>
+	
+		<div class="panelBar">
+			<div class="pages">
+				<span>共{$total}条</span>
+			</div>
+			
+			<div class="pagination" targetType="navTab" totalCount="{$total}" numPerPage="24" pageNumShown="10" currentPage="{$pageNum}"></div>
+		</div>
+		
+	</div>		
+</div>	

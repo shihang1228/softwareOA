@@ -1,0 +1,30 @@
+<form id="pagerForm" method="post" action="index.php?action=data&do=list">
+	<input type="hidden" name="pageNum" value="1" />
+    <input type="hidden" name="numPerPage" value="20" />
+</form>
+
+<div class="page">
+
+	<div class="pageContent">
+		<div class="panelBar">
+			<ul class="toolBar">				
+				<li><a class="add" href="?action=data&do=backupupdata" target="ajaxTodo" title="确定要备份吗?"><span>备份</span></a></li>
+				<li><a class="edit" href="?action=data&do=recoverupdata&id={id}" target="ajaxTodo" title="确定要恢复吗?"><span>恢复</span></a></li>
+			</ul>
+		</div>
+		<table class="list" layouth="75" style="width:200px">
+			<thead>
+				<tr>
+					<th align="center">名称</th>
+				</tr>
+			</thead>
+			<tbody>			
+			<!--{foreach from=$list item=row}-->
+				<tr target="id" rel="<!--{$row}-->" >
+					<td><!--{$row}--></td>
+				</tr>			
+			<!--{/foreach}-->
+			</tbody>
+		</table>
+	</div>
+</div>

@@ -1,0 +1,45 @@
+
+<div class="page">
+	<div class="pageHeader">
+		<form onsubmit="return navTabSearch(this);" action="index.php?action=report&do=t3" method="post">
+		<div class="searchBar">
+			<table class="searchContent">
+				<tr>
+					<td>
+						选择时间范围:<input type="text" name="time_start" size="10" class="date" value="<?php echo $this->_var['postdate_start']; ?>" readonly="true" />
+						-<input type="text" name="time_over" size="10" class="date" value="<?php echo $this->_var['postdate_over']; ?>" readonly="true" />
+					</td>
+					<td>
+					<div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div>
+					</td>
+				</tr>
+			</table>
+		</div>
+		</form>
+	</div>
+	<div class="pageContent">
+		<table class="list" layouth="65" >
+			<thead>
+				  <tr align=center>
+					<th>类型</th>
+					<?php echo $this->_var['productid_cn']; ?>
+				  </tr>
+			</thead>
+			<tbody>			
+			<?php $_from = $this->_var['list']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('', 'row');if (count($_from)):
+    foreach ($_from AS $this->_var['row']):
+?>
+				<tr align=center>
+					<td><?php echo $this->_var['row']['username']; ?></td>
+					<?php echo $this->_var['row']['productid_tj']; ?>
+				</tr>
+			<?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
+				<tr class="count_hh" align=center>
+					<td>合计</td>
+					<?php echo $this->_var['productid_tj_total']; ?>
+				</tr>
+			</tbody>
+		</table>
+		
+	</div>
+</div>

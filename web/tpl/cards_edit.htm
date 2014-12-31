@@ -1,0 +1,51 @@
+<div class="page">
+	<div class="pageContent">
+		<form method="post" action="?action=cards&do=updata" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone);">
+		<input type="hidden" style="display:none;" name="id" value="<!--{$row.id}-->" />
+			<div class="pageFormContent" layoutH="56">
+				<p>
+					<label>运营商：</label>
+					<select class="combox" name="tmobile">
+						<option value="<!--{$row.tmobile}-->" selected="selected"><!--{$row.tmobile}--></option>
+						{if $row.tmobile=="联通"}<option value="移动">移动</option><option value="电信">电信</option>{/if}
+						{if $row.tmobile=="电信"}<option value="移动">移动</option><option value="联通">联通</option>{/if}
+						{if $row.tmobile=="移动"}<option value="联通">联通</option><option value="电信">电信</option>{/if}
+					</select>
+				</p>
+				<p>
+					<label>卡号：</label>
+					<input name="cardnum" class="phone textInput required" type="text" size="30" value="<!--{$row.cardnum}-->" alt=""/>
+				</p>
+				<p>
+					<label>SIM卡状态：</label>
+					<!--{$state_cn}-->
+				</p>
+				<p>
+					<label>变更日期：</label>
+					<input name="changedate" class="date" type="text" size="30" value="<!--{$row.changedate}-->" alt=""/>
+				</p>
+				
+				<p>
+					<label>串号：</label>
+					<input name="imei" type="text" size="30" value="<!--{$row.imei}-->" alt=""/>
+				</p>
+				<p>
+					<label>资费：</label>
+					<input name="tariff" type="text" size="30" value="<!--{$row.tariff}-->" alt=""/>
+				</p>
+				
+				<p>
+					<label>备注：</label>
+					<input name="beizhu" type="text" size="30" value="<!--{$row.beizhu}-->" alt=""/>
+				</p>
+
+			</div>
+			<div class="formBar">
+				<ul>
+					<li><div class="buttonActive"><div class="buttonContent"><button type="submit">修改</button></div></div></li>
+					<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+				</ul>
+			</div>
+		</form>
+	</div>
+</div>

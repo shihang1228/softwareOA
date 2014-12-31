@@ -1,0 +1,43 @@
+
+<div class="page">
+	<div class="pageHeader">
+		<form onsubmit="return navTabSearch(this);" action="index.php?action=report&do=t3" method="post">
+		<div class="searchBar">
+			<table class="searchContent">
+				<tr>
+					<td>
+						选择时间范围:<input type="text" name="time_start" size="10" class="date" value="<!--{$postdate_start}-->" readonly="true" />
+						-<input type="text" name="time_over" size="10" class="date" value="<!--{$postdate_over}-->" readonly="true" />
+					</td>
+					<td>
+					<div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div>
+					</td>
+				</tr>
+			</table>
+		</div>
+		</form>
+	</div>
+	<div class="pageContent">
+		<table class="list" layouth="65" >
+			<thead>
+				  <tr align=center>
+					<th>公司</th>
+					<!--{$productid_cn}-->
+				  </tr>
+			</thead>
+			<tbody>			
+			<!--{foreach from=$list item=row}-->
+				<tr align=center>
+					<td><!--{$row.username}--></td>
+					<!--{$row.productid_tj}-->
+				</tr>
+			<!--{/foreach}-->
+				<tr class="count_hh" align=center>
+					<td>合计</td>
+					<!--{$productid_tj_total}-->
+				</tr>
+			</tbody>
+		</table>
+		
+	</div>
+</div>

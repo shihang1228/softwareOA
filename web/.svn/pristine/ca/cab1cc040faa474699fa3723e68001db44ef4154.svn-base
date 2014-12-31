@@ -1,0 +1,42 @@
+<div class="page">
+	<div class="pageContent">
+			<div class="pageFormContent" layoutH="56">
+				<p>
+					<label>所属销售：</label>
+					<?php echo $this->_var['row']['salesid_txt']; ?>
+				</p>
+				<p>
+					<label>客户名称：</label>
+					<?php echo $this->_var['row']['name']; ?>
+				</p>
+				<p>
+					<label>区域：</label>
+					<?php echo $this->_var['row']['areaid_txt']; ?>
+				</p>
+				<p>
+					<label>客户类型：</label>
+					<?php echo $this->_var['row']['typeid_txt']; ?>
+				</p>
+				<p>
+					<label>客户地址：</label>
+					<?php echo $this->_var['row']['address']; ?>
+				</p>
+				<p>
+					<label>联系人：</label>
+					<?php echo $this->_var['row']['linkman']; ?>
+				</p>
+				<p>
+					<label>客户电话：</label>
+					<?php echo $this->_var['row']['tel']; ?>
+				</p>
+				<p>
+					<label>登记时间：</label>
+					<?php echo $this->_var['row']['created_at']; ?>
+				</p>
+				<p>
+					<label>备注：</label>
+					<?php echo empty($this->_var['row']['intro']) ? '无' : $this->_var['row']['intro']; ?>
+				</p>
+			</div>
+	</div>
+</div>

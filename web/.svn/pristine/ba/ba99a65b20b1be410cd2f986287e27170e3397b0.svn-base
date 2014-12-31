@@ -1,0 +1,28 @@
+
+<div class="page">
+	<div class="pageContent">
+		<form method="post" action="?action=doc&do=add" class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDone);">	
+			<div class="pageFormContent" layoutH="56">
+				<p>
+					<label>标题：</label>
+					<input name="title" class="required" type="text" size="30" value="" alt=""/>
+				</p>
+				<p>
+					<label>类型：</label>					
+					<!--{$doctid_cn}-->
+				</p>
+				<p>
+					<label>备注：</label>
+					<textarea class="editor" name="intro" rows="12" cols="100"
+								upImgUrl="?action=doc&do=upload" upImgExt="jpg,jpeg,gif,png" >
+					</textarea>
+				</p>
+			</div>
+			<div class="formBar">
+				<ul>
+					<li><div class="buttonActive"><div class="buttonContent"><button type="submit">保存</button></div></div></li>
+				</ul>
+			</div>
+		</form>
+	</div>
+</div>

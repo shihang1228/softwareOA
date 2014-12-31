@@ -1,0 +1,83 @@
+<form id="pagerForm" method="post" action="index.php?action=sell">
+	<input type="hidden" name="pageNum" value="1" />
+    <input type="hidden" name="numPerPage" value="{$numPerPage}" />
+	<input type="hidden" name="name" value="{$smarty.request.name}"/>
+	<input type="hidden" name="address" value="{$smarty.request.address}"/>
+	<input type="hidden" name="time_start" value="{$smarty.request.time_start}"/>
+	<input type="hidden" name="time_over" value="{$smarty.request.time_over}"/>
+	<input type="hidden" name="areaid" value="{$smarty.request.areaid}"/>
+	<input type="hidden" name="typeid" value="{$smarty.request.typeid}"/>
+	<input type="hidden" name="salesid" value="{$smarty.request.salesid}"/>
+</form>
+
+<div class="page">
+	<div class="pageHeader">
+		<form onsubmit="return navTabSearch(this);" action="index.php?action=sell" method="post">
+		<div class="searchBar">
+			<table class="searchContent">
+				<tr>
+					<td>
+						客户名称:<input type="text" name="name" size="12" value="{$smarty.request.name}"/>
+					</td>
+					<td>
+						发生时间:<input type="text" name="time_start" size="9" class="date" readonly="true" value="{$smarty.request.time_start}"/>
+						-<input type="text" name="time_over" size="9" class="date" readonly="true" value="{$smarty.request.time_over}"/>
+					</td>					
+					{if $smarty.session.roleid != "3"}	
+					<td>
+					<!--{$salesid_cn}-->
+					</td>
+					{/if}
+					<td>
+					<div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div>
+					</td>
+				</tr>
+			</table>
+		</div>
+		</form>
+	</div>
+	<div class="pageContent">
+		<div class="panelBar">
+			<ul class="toolBar">
+				<li><a class="add" href="?action=sell&do=new&id={id}" target="dialog" mask="true"><span>新增维护信息</span></a></li>
+			</ul>
+		</div>
+		<table class="list" layouth="91" style="width:1220px;">
+			<thead>
+				<tr align=center>
+					<th align="center">ID</th>
+					<th align="center">所属维护</th>
+					<th align="center">客户名称</th>				
+					<!--{$marketid_cn}-->					
+					<!--{$productid_cn}-->
+				</tr>
+			</thead>
+			<tbody>			
+			<!--{foreach from=$list item=row}-->
+				<tr target="id" rel="<!--{$row.id}-->" align=center>
+					<td><!--{$row.id}--></td>
+					<td><!--{$row.salesid_txt}--></td>	
+					<td><!--{$row.name}--></td>
+					<!--{$row.productid_tj}--> 
+				</tr>			
+			<!--{/foreach}-->
+			</tbody>
+		</table>
+		<div class="panelBar">
+			<div class="pages">
+				<span>每页显示</span>
+					<select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value})">
+						<option value="24" {if $numPerPage==24}selected="selected"{/if}>24</option>
+						<option value="50" {if $numPerPage==50}selected="selected"{/if}>50</option>
+						<option value="100" {if $numPerPage==100}selected="selected"{/if}>100</option>
+						<option value="200" {if $numPerPage==200}selected="selected"{/if}>200</option>
+					</select>
+				<span>条</span>
+				<span>共{$total}条</span>
+			</div>
+			
+			<div class="pagination" targetType="navTab" totalCount="{$total}" numPerPage="{$numPerPage}" pageNumShown="10" currentPage="{$pageNum}"></div>
+
+		</div>
+	</div>
+</div>

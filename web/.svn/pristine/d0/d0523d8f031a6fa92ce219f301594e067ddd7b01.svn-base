@@ -1,0 +1,71 @@
+<form id="pagerForm" method="post" action="index.php?action=tel">
+	<input type="hidden" name="pageNum" value="1" />
+    <input type="hidden" name="numPerPage" value="20" />
+	<input type="hidden" name="name" value="<?php echo $_REQUEST['name']; ?>"/>
+	<input type="hidden" name="time_start" value="<?php echo $_REQUEST['time_start']; ?>"/>
+	<input type="hidden" name="time_over" value="<?php echo $_REQUEST['time_over']; ?>"/>
+</form>
+
+<div class="page">
+	<div class="pageHeader">
+		<form onsubmit="return navTabSearch(this);" action="index.php?action=tel" method="post">
+		<div class="searchBar">
+			<table class="searchContent">
+				<tr>
+					<td>
+						姓名:<input type="text" name="name" size="12" value="<?php echo $_REQUEST['name']; ?>"/>
+					</td>
+					<td>
+						发布时间:<input type="text" name="time_start" size="9" class="date" readonly="true" value="<?php echo $_REQUEST['time_start']; ?>"/>
+						-<input type="text" name="time_over" size="9" class="date" readonly="true" value="<?php echo $_REQUEST['time_over']; ?>"/>
+					</td>
+					<td>
+					<div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div>
+					</td>
+				</tr>
+			</table>
+		</div>
+		</form>
+	</div>
+	<div class="pageContent">
+		<div class="panelBar">
+			<ul class="toolBar">				
+				<li><a class="add" href="?action=tel&do=new" target="dialog" mask="true"><span>添加</span></a></li>
+				<li><a class="edit" href="?action=tel&do=edit&id={id}" target="dialog" mask="true"><span>修改</span></a></li>
+				<li><a class="delete" href="?action=tel&do=del&id={id}" target="ajaxTodo"  title="确定要删除吗?"><span>删除</span></a></li>
+			</ul>
+		</div>
+		<table class="list" layouth="91" style="width:520px;">
+			<thead>
+				<tr>
+					<th align="center">ID</th>
+					<th align="center">姓名</th>
+					<th align="center">部门</th>
+					<th align="center">号码</th>
+					<th align="center">发布时间</th>
+				</tr>
+			</thead>
+			<tbody>			
+			<?php $_from = $this->_var['list']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('', 'row');if (count($_from)):
+    foreach ($_from AS $this->_var['row']):
+?>
+				<tr target="id" rel="<?php echo $this->_var['row']['id']; ?>" >
+					<td><?php echo $this->_var['row']['id']; ?></td>
+					<td><?php echo $this->_var['row']['name']; ?></td>
+					<td><?php echo $this->_var['row']['department']; ?></td>
+					<td><?php echo $this->_var['row']['number']; ?></td>
+					<td><?php echo $this->_var['row']['created_at']; ?></td>
+				</tr>			
+			<?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
+			</tbody>
+		</table>
+		<div class="panelBar">
+			<div class="pages">
+				<span>共<?php echo $this->_var['total']; ?>条</span>
+			</div>
+			
+			<div class="pagination" targetType="navTab" totalCount="<?php echo $this->_var['total']; ?>" numPerPage="20" pageNumShown="10" currentPage="<?php echo $this->_var['pageNum']; ?>"></div>
+
+		</div>
+	</div>
+</div>

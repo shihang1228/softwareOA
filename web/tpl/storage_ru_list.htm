@@ -1,0 +1,102 @@
+<form id="pagerForm" method="post" action="index.php?action=storage_ru">
+	<input type="hidden" name="pageNum" value="1" />
+    <input type="hidden" name="numPerPage" value="{$numPerPage}" />
+	<input type="hidden" name="time_start" value="{$smarty.request.time_start}"/>
+	<input type="hidden" name="time_over" value="{$smarty.request.time_over}"/>
+	 <input type="hidden" name="pname" value="{$smarty.request.pname}"/> 
+	<input type="hidden" name="roomId" value="{$smarty.request.roomId}"/>
+	<input type="hidden" name="supplierId" value="{$smarty.request.supplierId}"/>
+	<input type="hidden" name="inputer" value="{$smarty.request.inputer}"/>
+</form>
+
+<div class="page">
+	<div class="pageHeader">
+		<form onsubmit="return navTabSearch(this);" action="index.php?action=storage_ru" method="post">
+		<div class="searchBar">
+			<table class="searchContent">
+				<tr>
+					<td>
+						物品名称:<input type="text" name="pname" size="12" value="{$smarty.request.pname}"/>
+					</td>	
+					<td>
+						<label style="width:48">选择库房:</label>
+						<!--{$roomId_cn}-->
+					</td>
+				
+					<td>
+						<label style="width:60">选择供货商:</label>
+						<!--{$supplierId_cn}-->
+					</td>
+					<td>
+						登记时间:<input type="text" name="time_start" size="9" class="date" readonly="true" value="{$smarty.request.time_start}"/>
+						-<input type="text" name="time_over" size="9" class="date" readonly="true" value="{$smarty.request.time_over}"/>
+					</td>
+					<td>
+						操作者:<input type="timestamp" name="inputer" size="12" value="{$smarty.request.inputer}"/>
+					</td>
+					
+					<td>
+					<div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div>
+					</td>
+				</tr>
+			</table>
+		</div>
+		</form>
+	</div>
+	<div class="pageContent">
+		
+		<table class="list" layouth="66" style="width:1360px;">
+			<thead>
+				<tr align=center>
+					<th width="50" align="center">ID</th>
+					<th width="180" align="center">商品名称</th>
+					<th width="100" align="center">型号</th>
+					<th width="100" align="center">数量</th>
+					<th width="200" align="center">供货商名称</th>
+					<th width="150" align="center">库房名称</th>
+					<th width="180" align="center">入库时间</th>
+					<th width="100" align="center">操作者</th>
+					<th width="100" align="center">确认入库</th>
+					<th width="200" align="center">所属分公司</th>
+				</tr>
+			</thead>
+			<tbody>			
+			<!--{foreach from=$list item=row}-->
+				<tr target="id" rel="<!--{$row.id}-->" align=center>
+					<td><!--{$row.id}--></td>
+					<td><!--{$row.pname}--></td>
+					<td><!--{$row.model}--></td>
+					<td><!--{$row.quantity}--></td>
+					<td><!--{$row.sname}--></td>
+					<td><!--{$row.rname}--></td>
+					<td><!--{$row.rukutime}--></td>
+					<td><!--{$row.kuguanName}--></td>
+					{if $row.judge==1}
+					<td><a class="add" align="center" href="?action=storage_ru&do=sure&id={$row.id}" target="ajaxTodo" targetType="dialog" title="是否确认入库？"><span>确认入库</span></a></td>
+					{/if}
+					{if $row.judge==2}
+					<td>已入库</td>
+					{/if}
+					<td><!--{$row.company1}--></td>	
+				</tr>
+			<!--{/foreach}-->
+			</tbody>
+		</table>
+		<div class="panelBar">
+			<div class="pages">
+				<span>每页显示</span>
+					<select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value})">
+						<option value="24" {if $numPerPage==24}selected="selected"{/if}>24</option>
+						<option value="50" {if $numPerPage==50}selected="selected"{/if}>50</option>
+						<option value="100" {if $numPerPage==100}selected="selected"{/if}>100</option>
+						<option value="200" {if $numPerPage==200}selected="selected"{/if}>200</option>
+					</select>
+				<span>条</span>
+				<span>共{$total}条</span>
+			</div>
+			
+			<div class="pagination" targetType="navTab" totalCount="{$total}" numPerPage="{$numPerPage}" pageNumShown="10" currentPage="{$pageNum}"></div>
+
+		</div>
+	</div>
+</div>

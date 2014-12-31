@@ -1,0 +1,120 @@
+<?php
+header("Content-type: text/html; charset=utf-8");
+if(!defined('CORE'))exit("error!"); 
+
+//列表	
+if($do==""){
+	If_rabc($action,$do); //检测权限	
+	//dump($_SESSION);
+	//判断检索值
+	if($_POST['intro']){$search .= " and intro like '%$_POST[intro]%'";}
+	if($_POST['sendid']){$search .= " and sendid = '$_POST[sendid]'";}
+	if($_POST['collectid']){$search .= " and collectid = '$_POST[collectid]'";}
+	if($_POST['time_start']!="" && $_POST['time_over']!=""){
+		$search .= " and `created_at` >  '$_POST[time_start] 00:00:00' AND  `created_at` <  '$_POST[time_over] 23:59:59'";
+	}	
+		
+	//设置分页
+	if($_POST[numPerPage]==""){
+		$numPerPage="20";
+	}else{
+		$numPerPage=$_POST[numPerPage];
+	}
+
+	if($_POST[pageNum]==""||$_POST[pageNum]=="0" ){$pageNum="0";}else{$pageNum=($_POST[pageNum]-1)*$numPerPage;}
+	$info_num=mysql_query("SELECT * FROM `rv_note` where 1=1 $search");//当前频道条数
+	$total=mysql_num_rows($info_num);//总条数	
+	
+	//查询
+	$sql="SELECT * FROM `rv_note` where 1=1 $search order by id desc LIMIT $pageNum,$numPerPage";
+	$db->query($sql);
+	$list=$db->fetchAll();
+	
+	//格式化输出数据
+	foreach($list as $key=>$val){
+		$list[$key][sendid_txt] = $user_list[$list[$key][sendid]];
+		$list[$key][collectid_txt] = $user_list[$list[$key][collectid]];
+		$list[$key][open_txt] =  $list[$key][open] ? "是" : "否" ;
+	}
+
+	//模版
+	$smt = new smarty();smarty_cfg($smt);
+	$smt->assign('list',$list);
+	$smt->assign('sendid_cn',select($user_list,"sendid",$_POST[sendid],"发送者选择"));	
+	$smt->assign('collectid_cn',select($user_list,"collectid",$_POST[collectid],"接收者选择"));
+	$smt->assign('numPerPage',$numPerPage); //显示条数
+	$smt->assign('pageNum',$_POST[pageNum]); //当前页数
+	$smt->assign('total',$total);
+	$smt->assign('title',"列表");
+	$smt->display('note_list.htm');
+	exit;
+}
+
+//新建	
+if($do=="new"){	
+	If_rabc($action,$do); //检测权限
+	$smt = new smarty();smarty_cfg($smt);
+
+	//模版
+	$smt->assign('sendid_cn',select($user_list,"sendid",$_SESSION[userid],"发送者选择","required"));	
+	$smt->assign('collectid_cn',select($user_list,"collectid",'',"接收者选择","required"));
+	$smt->assign('title',"新建");
+	$smt->display('note_new.htm');
+	exit;
+}
+
+//写入
+if($do=="add"){
+	If_rabc($action,$do); //检测权限
+	$salesid=$_SESSION[userid];
+	$created_at=date("Y-m-d H:i:s", time());
+	$sql="INSERT INTO `rv_note` (`sendid` ,`collectid`,`open`,`intro` ,`created_at`)
+	VALUES ('$_POST[sendid]', '$_POST[collectid]', '$_POST[open]','$_POST[intro]','$created_at');";
+	if($db->query($sql)){echo success($msg);}else{echo error($msg);}
+	exit;
+}
+
+
+//编辑	
+if($do=="edit"){
+	If_rabc($action,$do); //检测权限
+	$smt = new smarty();smarty_cfg($smt);
+	//查询
+	$sql="SELECT * FROM `rv_note` where id='$id' LIMIT 1";
+	$db->query($sql);
+	$row=$db->fetchRow();
+	//模版
+	$smt->assign('sendid_cn',select($user_list,"sendid",$row[sendid],"发送者选择","required"));	
+	$smt->assign('collectid_cn',select($user_list,"collectid",$row[collectid],"接收者选择","required"));
+	$smt->assign('row',$row);
+	$smt->assign('title',"编辑");
+	$smt->display('note_edit.htm');
+	exit;
+}
+
+//更新
+if($do=="updata"){
+	If_rabc($action,$do); //检测权限
+	//dump($_POST);	
+	$updated_at=date("Y-m-d H:i:s", time());
+	$post_productid = implode(",",$_POST[productid]);
+	//sql
+	$sql="UPDATE `rv_note` SET 
+	`sendid` = '$_POST[sendid]',
+	`collectid` = '$_POST[collectid]',
+	`open` = '$_POST[open]',
+	`intro` = '$_POST[intro]',
+	`updated_at` = '$updated_at' WHERE `rv_note`.`id` ='$_POST[id]' LIMIT 1 ;";
+	
+	if($db->query($sql)){echo success($msg);}else{echo error($msg);}	
+	exit;
+}
+
+//删除
+if($do=="del"){
+	If_rabc($action,$do); //检测权限
+	$sql="delete from `rv_note` where `rv_note`.`id`='$id' LIMIT 1";
+	if($db->query($sql)){echo success($msg);}else{echo error($msg);}		
+	exit;
+}
+?>

@@ -1,0 +1,81 @@
+<?php
+//====================================================
+//		FileName: action.info.php
+//		Summary:  客户信息文件
+//====================================================
+header("Content-type: text/html; charset=utf-8");
+if(!defined('CORE'))exit("error!"); 
+
+
+
+//列表	
+if($do==""){
+	// If_rabc($action,$do); //检测权限	
+	//判断检索值
+	if($_POST['productId']){$search .= " and productId like '%$_POST[productId]%'";}	
+ 	if($_POST['roomId']){$search .= " and roomId like '%$_POST[roomId]%'";}
+	if($_POST['supplierId']){$search .= " and supplierId = '$_POST[supplierId]'";}
+	if($_POST['inputer']){$search .= " and inputer = '$_POST[inputer]'";}
+	if($_POST['time_start']!="" && $_POST['time_over']!=""){
+		$search .= " and `created_at` >  '$_POST[time_start] 00:00:00' AND  `created_at` <  '$_POST[time_over] 23:59:59'";
+	}
+	
+	
+	//设置分页
+	if($_POST[numPerPage]==""){$numPerPage="24";}else{$numPerPage=$_POST[numPerPage];}
+
+	if($_POST[pageNum]==""||$_POST[pageNum]=="0" ){$pageNum="0";}else{$pageNum=($_POST[pageNum]-1)*$numPerPage;}
+	$info_num=mysql_query("SELECT * FROM `rv_storage` where 1=1 $search");//当前频道条数
+	$total=mysql_num_rows($info_num);//总条数	
+
+	//查询
+	$sql="SELECT rv_storage.id,rv_product.name,rv_room.name,rv_supplier.name,rv_storage.quantity,rv_storage.outprice,rv_storage.time,rv_storage.inputer FROM `rv_storage`,`rv_product`,`rv_room`,`rv_supplier` 
+	where rv_storage.supplierId = rv_supplier.id and  rv_storage.productId = rv_product.id and rv_storage.roomId = rv_room.id and rv_storage.quanxian = 0 $search";
+	$db->query($sql);
+	$list=$db->fetchAll();
+	//格式化输出数据
+	foreach($list as $key=>$val){
+		$list[$key][roomId_txt] = $room_list[$list[$key][id]];
+		$list[$key][supplierId_txt] = $chu_list[$list[$key][id]];
+	}
+
+	//模版
+	$smt = new smarty();smarty_cfg($smt);
+	$smt->assign('list',$list);
+	$smt->assign('roomId_cn',select($room_list,"roomId","","库房选择"));
+	$smt->assign('supplierId_cn',select($chu_list,"supplierId","","公司选择"));
+	$smt->assign('numPerPage',$_POST[numPerPage]); //显示条数
+	$smt->assign('pageNum',$_POST[pageNum]); //当前页数
+	$smt->assign('total',$total);
+	$smt->assign('title',"入库列表");
+	$smt->display('storage_chu_list.htm');
+	exit;	
+}
+
+//新建	
+if($do=="new"){	
+	// If_rabc($action,$do); //检测权限
+	$smt = new smarty();smarty_cfg($smt);
+
+	//模版
+	$smt->assign('typeid_cn',select($typeid,"typeid","","选择公司","required"));
+	$smt->assign('brandid_cn',select($brandid,"brandid","","品牌选择","required"));
+	$smt->assign('areaid_cn',select($areaid,"areaid","","地区选择","required"));
+	$smt->assign('salesid_cn',select($user_list,"salesid","","维护选择"));	
+	$smt->assign('title',"新建");
+	$smt->display('info_new.htm');
+	exit;
+}
+
+//写入
+if($do=="add"){
+	If_rabc($action,$do); //检测权限
+	if($_POST[salesid]){$salesid=$_POST[salesid];}
+	else{$salesid=$_SESSION[userid];}
+	$post_productid = implode(",",$_POST[productid]);
+	$sql="INSERT INTO `rv_info` (`name` ,`address`,`linkman`,`tel`,`longitude`,`latitude`,`location`,`areaid`,`salesid`,`typeid`,`intro`)
+	VALUES ('$_POST[name]', '$_POST[address]', '$_POST[linkman]','$_POST[tel]','$_POST[longitude]','$_POST[latitude]','$_POST[location]','$_POST[areaid]','$salesid','$_POST[typeid]','$_POST[intro]');";
+	if($db->query($sql)){echo success($msg);}else{echo error($msg);}
+	exit;
+}
+?>

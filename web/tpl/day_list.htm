@@ -1,0 +1,75 @@
+<div class="page">
+<div class="pageHeader">
+<form onsubmit="return navTabSearch(this);" action="index.php?action=day" method="post">
+		<div class="searchBar">
+			<table class="searchContent">
+				<tr>
+					<td>
+						选择日期:<input type="text" name="date1" class="date" size="12" value="{$smarty.request.date1}"/>
+					</td>
+					<td>
+					<div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</form>
+</div>
+	<div class="pageContent">
+		<div class="panelBar">
+			<ul class="toolBar">
+				<li><a class="add" href="?action=day&do=print&date={$date}" target="dwzExport" targetType="dialog" title="是要导出这些记录吗?"><span>导出EXCEL</span></a></li>
+			</ul>
+		</div>
+		<table class="list" layouth="92" style="width:320px;">
+			<thead>
+			
+				<tr align=center>
+					<th colspan="2" width="200"> </th>
+					<th colspan="2" width="120"><!--{$row.date1}--></th>
+				</tr>
+				<tr align=center>
+					<th width="80"> </th>
+					<th width="120"> </th>
+					<th width="40">数量</th>
+					<th width="80">金额</th>
+				</tr>
+			</thead>
+			<tbody>
+			<tr align=center>
+				<!--{foreach from=$list2 item=row2}-->
+					<td rowspan="<!--{$row2.c}-->"><!--{$row2.biaoshi}--></td>
+					<!--{foreach from=$list1 item=row1}-->
+					{if $row1.biaoshi==$row2.biaoshi}
+					<td><!--{$row1.name}--></td>
+					<td>
+					<!--{foreach from=$list3 item=row}-->
+					{if $row.name==$row1.name and $row.biaoshi==$row1.biaoshi}<!--{$row.quantity}-->{/if}
+					<!--{/foreach}-->
+					</td>
+					<td>
+					<!--{foreach from=$list3 item=row}-->
+					{if $row.name==$row1.name and $row.biaoshi==$row1.biaoshi}<!--{$row.money}-->{/if}
+					<!--{/foreach}-->
+					</td>
+				</tr>
+				<tr align=center>
+				{/if}
+				<!--{/foreach}-->			
+			<!--{/foreach}-->
+			</tr>
+			<tr align=center>
+			<td>合 计</td>
+			<td></td>
+			<td></td>
+			<td><!--{$list5.money}--></td>
+			</tr>
+			</tbody>
+		</table>
+	
+		<div class="panelBar">
+
+		</div>
+		
+	</div>		
+</div>	

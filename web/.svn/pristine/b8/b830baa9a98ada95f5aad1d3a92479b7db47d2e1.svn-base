@@ -1,0 +1,80 @@
+<?php
+header("Content-type: text/html; charset=utf-8");
+if(!defined('CORE'))exit("error!"); 
+
+//列表	
+if($do==""){
+	//If_rabc($action,$do); //检测权限	
+	//判断检索值
+	if($_POST['pname']){$search .= " and c.name like '%$_POST[pname]%'";}
+	if($_POST['roomId']){$search .= " and roomId = '$_POST[roomId]'";}
+	if($_POST['supplierId']){$search .= " and supplierId = '$_POST[supplierId]'";}
+	if($_POST['inputer']){$search .= " and inputer = '$_POST[inputer]'";}
+	//判断如果是维护只显示自己的
+	//if($_SESSION[roleid]=="3"){$search .= " and salesid = '$_SESSION[userid]'";} //维护
+	
+	//设置分页
+	if($_POST[numPerPage]=="")
+	{
+		$numPerPage="24";
+	}else{
+		$numPerPage=$_POST[numPerPage];
+	}
+
+	if($_POST[pageNum]==""||$_POST[pageNum]=="0" )
+	{
+		$pageNum="0";
+	}else{
+		$pageNum=($_POST[pageNum]-1)*$numPerPage;
+	}
+	$info_num=mysql_query("SELECT * FROM `rv_storage_ru` where 1=1 $search");//当前频道条数
+	$total=mysql_num_rows($info_num);//总条数	
+
+	
+	
+	//查询
+	$sql="SELECT a.id,a.inputer,a.quantity,a.inprice,a.time ,c.name as pname,b.name as rname,d.name as sname FROM `rv_storage_ru` as a, `rv_room` as b,`rv_product` as c,`rv_supplier` as d 
+	where a.productId=c.id and a.roomId=b.id and a.supplierId=d.id $search";
+	$db->query($sql);
+	$list=$db->fetchAll();
+
+	//模版
+	$smt = new smarty();smarty_cfg($smt);
+	$smt->assign('list',$list);	 
+	
+	$smt->assign('roomId_cn',select($room_list,"roomId","","仓库选择"));
+	$smt->assign('supplierId_cn',select($supplier_list,"supplierId","","供应商选择"));
+	$smt->assign('numPerPage',$_POST[numPerPage]); //显示条数
+	$smt->assign('pageNum',$_POST[pageNum]); //当前页数
+	$smt->assign('total',$total);
+	$smt->assign('title',"产品列表");
+	$smt->display('storage_ru_list.htm');
+	exit;	
+}
+
+
+
+//新增维护信息	
+if($do=="new"){
+	// If_rabc($action,$do); //检测权限
+	
+	$smt = new smarty();smarty_cfg($smt);
+	$smt->assign('productId_cn',select($product_list,"productId","","选择商品"));
+	$smt->assign('roomId_cn',select($room_list,"roomId","","库房选择"));
+	$smt->assign('supplierId_cn',select($supplier_list,"supplierId","","供应商选择"));
+	$smt->assign('title',"新增入库记录");
+	$smt->display('storage_ru_new.htm');
+	exit;
+}
+
+
+//写入维护信息
+if($do=="add"){
+	// If_rabc($action,$do); //检测权限
+	$sql="INSERT INTO `rv_storage_ru` (`productId` ,`roomId` ,`supplierId` ,`quantity` ,`inprice`,`inputer`)
+	VALUES ('$_POST[productId]','$_POST[roomId]','$_POST[supplierId]','$_POST[quantity]','$_POST[inprice]','$_POST[inputer]');";
+	if($db->query($sql)){echo success($msg);}else{echo error($msg);}
+	exit;
+}
+
+?>

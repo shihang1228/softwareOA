@@ -1,0 +1,133 @@
+<?php
+//====================================================
+//		FileName: index.php
+//		Summary:  程序入口文件
+//====================================================
+header("Content-type: text/html; charset=utf-7");
+session_start();
+error_reporting(0);
+
+//配置数据库
+$cfg["dbhost"]="localhost";     //数据库主机名
+$cfg["dbuser"]="root";		    //数据库用户名
+$cfg["dbpass"]="jdqmjsb3307"; 				//数据库密码
+$cfg["dbname"]="esm";  			//数据库名称
+$cfg["webname"]="山西冀东启明科技有限公司"; //系统名称
+
+//打卡时间
+$attendance_txt ="注:公司打卡时间 早晨8:00-9:00 中午11:00-13:00 下午18:00-24:00"; 
+
+
+//引入类库及公共方法
+@define("CORE",dirname(__FILE__)."/"); 	    //根目录    dirname(string path)返回路径中的目录部分
+require_once("lib/mysql.class.php");        //数据类
+require_once("lib/smarty.class.php");       //模版类
+require_once('lib/json.class.php');		    //JSON类
+require_once("lib/func.class.php");         //核心类
+require_once("lib/rabc.class.php");         //查询类
+require_once("lib/image.class.php");        //图片类
+
+
+//操作值
+$action=empty($_GET['action'])?'':trim($_GET['action']); 	 //get action值     判断action的get传值是否为空，如果为空则返回空，否则返回action的Get传值
+$do=empty($_GET['do'])?'':trim($_GET['do']);			 	 //get do值
+$id=empty($_GET['id'])?'':intval($_GET['id']);				 //get id值    intval()获取变量的整数值
+$cuserid=empty($_GET['userid'])?'':intval($_GET['userid']);  //get userid值
+
+
+//读取参数数组
+$sql_tt="SELECT id,title,type FROM `rv_type`";
+$db->query($sql_tt);//执行SQL语句
+$type_cut=$db->fetchAll();//取出所有的记录（数组形式）
+foreach ($type_cut as $key => $val) {//foreach遍历数组或对象
+	$type_cut[$val[type]][$val[id]] = $val[title];
+	unset($type_cut[$key]);//取消掉引用
+}
+
+
+//初始值参数数组
+$areaid=$type_cut[areaid];				//区域参数
+$typeid=$type_cut[typeid];				//类型参数
+$productid=$type_cut[productid];		//维护参数
+$doctid=$type_cut[doctid];				//文档参数
+
+
+//读取用户数组
+$sql_user="SELECT id,username FROM `rv_user`";
+$db->query($sql_user);
+$user_arr=$db->fetchAll();
+foreach($user_arr as $key=>$val){
+	$user_list[$user_arr[$key][id]]=$user_arr[$key][username];	 //用户数组
+}
+
+//查询
+	$sql="SELECT id,category FROM `rv_sort`";
+	$db->query($sql);
+	$list=$db->fetchAll();
+	
+	
+	 //格式化输出数据
+	foreach($list as $key=>$val){
+		$list1[$list[$key][id]] = $list[$key][category];	//物品类型数组		
+	} 
+//执行页面
+switch ($action){
+	case "":
+	  include('action/action.index.php');     //首页
+	  break;
+	case "info":
+	  include('action/action.info.php');      //车辆
+	  break;
+	case "sell":
+	  include('action/action.sell.php');      //维护
+	  break;
+	case "daily":
+	  include('action/action.daily.php');     //日报
+	  break;
+	case "room":
+	  include('action/action.room.php');      //车辆
+	  break;
+	case "sort":
+	  include('action/action.sort.php');      //维护
+	  break;
+	case "product":
+	  include('action/action.product.php');     //日报
+	  break;
+	case "photo":
+	  include('action/action.photo.php');     //照片
+	  break;
+	case "tel":
+	  include('action/action.tel.php');       //电话
+	  break;
+	case "doc":
+	  include('action/action.doc.php');       //公告
+	  break;
+	case "track":
+	  include('action/action.track.php');     //打卡
+	  break;
+	case "note":
+	  include('action/action.note.php');      //反馈
+	  break;
+	case "report":
+	  include('action/action.report.php');    //报表
+	  break;
+	case "config":
+	  include('action/action.config.php');    //配置
+	  break;
+	case "role":
+	  include('action/action.role.php');      //角色
+	  break;
+	case "user":
+	  include('action/action.user.php');      //用户
+	  break;
+	case "data":
+	  include('action/action.data.php');      //数据
+	  break;
+	case "mobile":
+	  include('action/action.mobile.php');	  //手机
+	  break;
+	default:
+	  echo "404!";
+}
+
+?>
