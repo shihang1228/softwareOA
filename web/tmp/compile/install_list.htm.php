@@ -39,6 +39,7 @@
 			<thead>
 				<tr align=center>
 					<th width="40" align="center">ID</th>
+					<th width="100" align="center">车牌号</th>
 					<th width="100" align="center">速度线束</th>
 					<th width="100" align="center">常火线束</th>
 					<th width="100" align="center">ACC线束</th>
@@ -61,6 +62,7 @@
 ?>
 				<tr target="id" rel="<?php echo $this->_var['row']['id']; ?>" align=center>
 					<td><?php echo $this->_var['row']['id']; ?></td>
+					<td><?php echo $this->_var['row']['carNum']; ?></td>	
 					<td><?php echo $this->_var['row']['line1']; ?></td>	
 					<td><?php echo $this->_var['row']['line2']; ?></td>	
 					<td><?php echo $this->_var['row']['line3']; ?></td>	

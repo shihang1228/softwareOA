@@ -39,6 +39,7 @@
 			<thead>
 				<tr align=center>
 					<th width="40" align="center">ID</th>
+					<th width="100" align="center">车牌号</th>
 					<th width="100" align="center">速度线束</th>
 					<th width="100" align="center">常火线束</th>
 					<th width="100" align="center">ACC线束</th>
@@ -59,6 +60,7 @@
 			<!--{foreach from=$list item=row}-->
 				<tr target="id" rel="<!--{$row.id}-->" align=center>
 					<td><!--{$row.id}--></td>
+					<td><!--{$row.carNum}--></td>	
 					<td><!--{$row.line1}--></td>	
 					<td><!--{$row.line2}--></td>	
 					<td><!--{$row.line3}--></td>	

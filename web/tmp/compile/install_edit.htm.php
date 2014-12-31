@@ -5,7 +5,7 @@
 			<div class="pageFormContent" layoutH="56">
 				<p>
 					<label>车牌号：</label>
-					<input name="carNum" class="required" type="text" size="30" value="<?php echo $this->_var['row']['carNum']; ?>" alt=""/>
+					<input name="carNum" class="required" type="text" size="30" readonly = "readonly" value="<?php echo $this->_var['row1']['carNum']; ?>" alt=""/>
 				</p>
 				<p>
 					<label>速度线束：</label>
