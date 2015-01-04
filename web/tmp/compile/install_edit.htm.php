@@ -1,7 +1,7 @@
 <div class="page">
 	<div class="pageContent">
 		<form method="post" action="?action=install&do=updata" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone);">
-		<input type="hidden" style="display:none;" name="id" value="<?php echo $this->_var['row']['id']; ?>" />
+		<input type="hidden" style="display:none;" name="id" value="<?php echo $this->_var['row1']['id']; ?>" />
 			<div class="pageFormContent" layoutH="56">
 				<p>
 					<label>车牌号：</label>
